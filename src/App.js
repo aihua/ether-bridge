@@ -11,6 +11,13 @@ import {
     InputNumber,
     Icon,
 } from 'antd';
+const {
+    abi,
+    bytecode
+} = require('./contracts/compiled')
+
+const transaction = require('./contracts/transaction')
+const transferContract = new nervos.appchain.Contract(abi, nervos.contractAddress)
 
 const log = console.log.bind(console, '###')
 
@@ -83,15 +90,19 @@ class App extends React.Component {
         isAddressSame: false,
         inputValue: 0,
         ethBalance: 0,
-        ebcBalance: 0,
+        ebcBalance: 10,
     }
 
     componentDidMount() {
-        nervos.appchain.getBalance(this.state.neuronWebAddress).then((res) => {
+        // log('transferContract', transferContract)
+        transferContract.methods.balanceOf(this.state.neuronWebAddress).call().then((res) => {
+            log(res)
             this.setState({
-                ebcBalance: res / 1e20,
-                inputValue: res / 1e20,
+                ebcBalance: res,
+                inputValue: res,
             })
+        }).catch((err) => {
+            console.log(err.message)
         })
 
         window.web3.eth.getBalance(this.state.metaMaskAddress, (err, res) => {
@@ -117,6 +128,15 @@ class App extends React.Component {
 
     handleExchange = () => {
         log('exchange button')
+        // const transferContract = new nervos.appchain.Contract(abi, nervos.contractAddress)
+        // log('transferContract:', transferContract.methods)
+        // nervos.appchain.getBlockNumber().then((res) => {
+        //     const num = Number(res)
+        //     transaction.validUntilBlock = num + 88
+        // }).then(() => {
+        //     log('transferContract:', transferContract.methods)
+        // })
+
     }
 
     handleCancelBtn = () => {
