@@ -24,14 +24,13 @@ const errorNoticePanel = () => {
 
 const exchangePanel = (
     inputValue,
-    transferValue,
     neuronWebAddress,
     metaMaskAddress,
     ebcBalance,
     ethBalance,
     handleSliderChange,
     handleExchange,
-    handleCloseBtn) => {
+    handleCancelBtn) => {
     return (
         <div>
             <Row>
@@ -58,7 +57,7 @@ const exchangePanel = (
             </Row>
             <Row>
                 <Col span={8}>
-                    <Icon type="close-circle" theme="outlined" style={{fontSize: '32px'}} onClick={handleCloseBtn}/>
+                    <Icon type="close-circle" theme="outlined" style={{fontSize: '32px'}} onClick={handleCancelBtn}/>
                 </Col>
                 <Col span={8}>
                     <InputNumber
@@ -97,8 +96,8 @@ class App extends React.Component {
 
         window.web3.eth.getBalance(this.state.metaMaskAddress, (err, res) => {
             this.setState({
-                // ethBalance: res.toNumber(),
-                ethBalance: 50,
+                ethBalance: res.toNumber(),
+                // ethBalance: 50,
             })
         })
 
@@ -120,7 +119,7 @@ class App extends React.Component {
         log('exchange button')
     }
 
-    handleCloseBtn = () => {
+    handleCancelBtn = () => {
         log('close button')
         nervos.appchain.getBalance(this.state.neuronWebAddress).then((res) => {
             this.setState({
@@ -136,8 +135,7 @@ class App extends React.Component {
             metaMaskAddress,
             ebcBalance,
             ethBalance,
-            inputValue,
-            transferValue} = this.state
+            inputValue} = this.state
         return (
             <div>
                 <Row className='dapp-title'>
@@ -146,15 +144,13 @@ class App extends React.Component {
                 {!isAddressSame ?
                     exchangePanel(
                         inputValue,
-                        transferValue,
                         neuronWebAddress,
                         metaMaskAddress,
                         ebcBalance,
                         ethBalance,
                         this.handleSliderChange,
                         this.handleExchange,
-                        this.handleCloseBtn,
-                        this.handleTransferValue)
+                        this.handleCancelBtn)
                     :
                     errorNoticePanel()}
             </div>
