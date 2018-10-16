@@ -94,9 +94,9 @@ class App extends React.Component {
                         <Col span={24}>MetaMask address is not as same with neuron-web address.</Col>
                     </Row>
                 </React.Fragment>
+
         )
     }
 }
 
 export default App
-
