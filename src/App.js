@@ -120,7 +120,7 @@ class App extends React.Component {
     }
 
     handleCancelBtn = () => {
-        log('close button')
+        log('cancel button')
         nervos.appchain.getBalance(this.state.neuronWebAddress).then((res) => {
             this.setState({
                 inputValue: res / 1e20
