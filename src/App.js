@@ -11,6 +11,7 @@ import SliderPanel from './containers/SliderPanel'
 
 const {abi} = require('./contracts/compiled')
 
+
 const transaction = require('./contracts/transaction')
 const transferContract = new nervos.appchain.Contract(abi, nervos.contractAddress)
 
@@ -94,7 +95,6 @@ class App extends React.Component {
                         <Col span={24}>MetaMask address is not as same with neuron-web address.</Col>
                     </Row>
                 </React.Fragment>
-
         )
     }
 }
