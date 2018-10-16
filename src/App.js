@@ -90,16 +90,15 @@ class App extends React.Component {
         isAddressSame: false,
         inputValue: 0,
         ethBalance: 0,
-        ebcBalance: 10,
+        ebcBalance: 0,
     }
 
     componentDidMount() {
         // log('transferContract', transferContract)
         transferContract.methods.balanceOf(this.state.neuronWebAddress).call().then((res) => {
-            log(res)
             this.setState({
-                ebcBalance: res,
-                inputValue: res,
+                ebcBalance: Number(res),
+                inputValue: Number(res),
             })
         }).catch((err) => {
             console.log(err.message)
@@ -107,8 +106,7 @@ class App extends React.Component {
 
         window.web3.eth.getBalance(this.state.metaMaskAddress, (err, res) => {
             this.setState({
-                ethBalance: res.toNumber(),
-                // ethBalance: 50,
+                ethBalance: res.toNumber() / 1e18,
             })
         })
 
@@ -128,23 +126,17 @@ class App extends React.Component {
 
     handleExchange = () => {
         log('exchange button')
-        // const transferContract = new nervos.appchain.Contract(abi, nervos.contractAddress)
-        // log('transferContract:', transferContract.methods)
-        // nervos.appchain.getBlockNumber().then((res) => {
-        //     const num = Number(res)
-        //     transaction.validUntilBlock = num + 88
-        // }).then(() => {
-        //     log('transferContract:', transferContract.methods)
-        // })
-
     }
 
     handleCancelBtn = () => {
         log('cancel button')
-        nervos.appchain.getBalance(this.state.neuronWebAddress).then((res) => {
+        transferContract.methods.balanceOf(this.state.neuronWebAddress).call().then((res) => {
             this.setState({
-                inputValue: res / 1e20
+                ebcBalance: Number(res),
+                inputValue: Number(res),
             })
+        }).catch((err) => {
+            console.log(err.message)
         })
     }
 
@@ -161,7 +153,7 @@ class App extends React.Component {
                 <Row className='dapp-title'>
                     <Col span={24}>Ether Bridge</Col>
                 </Row>
-                {!isAddressSame ?
+                {isAddressSame ?
                     exchangePanel(
                         inputValue,
                         neuronWebAddress,
