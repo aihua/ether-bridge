@@ -3,19 +3,18 @@ import React from "react"
 import "antd/dist/antd.css"
 import "./App.css"
 import nervos from './nervos'
-import {Row, Col, Button, Slider, InputNumber} from 'antd';
+import {
+    Row,
+    Col,
+    Button,
+    Slider,
+    InputNumber,
+    Icon,
+} from 'antd';
 
 const log = console.log.bind(console, '###')
 
-const AccountPanel = (neuronWebAddress) => {
-    return (
-        <Row>
-            <Col span={24}>neuron-web address: {neuronWebAddress}</Col>
-        </Row>
-    )
-}
-
-const NoticePanel = () => {
+const errorNoticePanel = () => {
     return (
         <div>
             <Col span={24}>MetaMask address is not as same with neuron-web address.</Col>
@@ -23,50 +22,48 @@ const NoticePanel = () => {
     )
 }
 
-const TokenDisplayPanel = () => {
-    return(
-        <Row>
-            <Col span={8}>eth   5.0</Col>
-            <Col span={8}> 这里放一个双向箭头</Col>
-            <Col span={8}>0.25  ebc</Col>
-        </Row>
-    )
-}
-
-const SliderPannel = (inputValue, handleSliderChange) => {
+const exchangePanel = (inputValue, neuronWebAddress, metaMaskAddress, ebcBalance, ethBalance, handleSliderChange, handleExchange, handleCloseBtn) => {
     return (
-        <Row>
-            <Col span={24}>
-                <Slider
-                    min={0}
-                    max={1}
-                    onChange={handleSliderChange}
-                    value={typeof inputValue === 'number' ? inputValue : 0}
-                    step={0.01}
-                />
-            </Col>
-        </Row>
-    );
-}
-
-const InputPanel = (inputValue, handleSliderChange, handleExchange) => {
-    return(
-        <Row>
-            <Col span={8}>这里给一个撤销按钮</Col>
-            <Col span={8}>
-            <InputNumber
-                min={0}
-                max={1}
-                // style={{ marginLeft: 16 }}
-                value={inputValue}
-                step={0.01}
-                onChange={handleSliderChange}
-            />
-            </Col>
-            <Col span={8}>
-                <Button onClick={handleExchange}>exchange</Button>
-            </Col>
-        </Row>
+        <div>
+            <Row>
+                <Col span={24}>neuron-web address: {neuronWebAddress}</Col>
+            </Row>
+            <Row>
+                <Col span={5}>{'eth'}</Col>
+                <Col span={5}>{ethBalance}</Col>
+                <Col span={4}> {'<---------------------->'}</Col>
+                <Col span={5}>{ebcBalance}</Col>
+                <Col span={5}>{'ebc'}</Col>
+            </Row>
+            <Row>
+                <Col span={24}>
+                    <Slider
+                        min={0}
+                        max={Number(ethBalance) + Number(ebcBalance)}
+                        onChange={handleSliderChange}
+                        // tipFormatter={null}
+                        value={typeof inputValue === 'number' ? inputValue : 0}
+                        step={0.01}
+                    />
+                </Col>
+            </Row>
+            <Row>
+                <Col span={8}><Icon type="close-circle" theme="outlined" style={{fontSize: '32px'}}
+                                    onClick={handleCloseBtn}/></Col>
+                <Col span={8}>
+                    <InputNumber
+                        min={0}
+                        max={Number(ethBalance) + Number(ebcBalance)}
+                        value={inputValue}
+                        step={0.01}
+                        onChange={handleSliderChange}
+                    />
+                </Col>
+                <Col span={8}>
+                    <Button onClick={handleExchange}>exchange</Button>
+                </Col>
+            </Row>
+        </div>
     )
 }
 
@@ -76,25 +73,27 @@ class App extends React.Component {
         neuronWebAddress: nervos.appchain.defaultAccount || '',
         isAddressSame: false,
         inputValue: 0,
+        ethBalance: 0,
+        ebcBalance: 0,
     }
 
     componentDidMount() {
-
-        this.setState({
-            isAddressSame: this.state.metaMaskAddress.toLowerCase() === this.state.neuronWebAddress.toLowerCase()
+        nervos.appchain.getBalance(this.state.neuronWebAddress).then((res) => {
+            this.setState({
+                ebcBalance: res / 1e20,
+                inputValue: res / 1e20 * 0.5
+            })
         })
 
-        log('metamask address:', this.state.metaMaskAddress)
-        log('neuron-web address:', this.state.neuronWebAddress)
-        log(this.state.isAddressSame)
-    }
+        window.web3.eth.getBalance(this.state.metaMaskAddress, (err, res) => {
+            this.setState({
+                ethBalance: res.toNumber(),
+            })
+        })
 
-    handleExchange = () => {
-        log('exchange button')
-        log('metamask address:', this.state.metaMaskAddress.toLowerCase())
-        log('neuron-web address:', this.state.neuronWebAddress.toLowerCase())
-        log(this.state.isAddressSame)
-
+        this.setState({
+            isAddressSame: this.state.metaMaskAddress.toLowerCase() === this.state.neuronWebAddress.toLowerCase(),
+        })
     }
 
     handleSliderChange = (value) => {
@@ -106,19 +105,38 @@ class App extends React.Component {
         })
     }
 
+    handleExchange = () => {
+        log('exchange button')
+    }
+
+    handleCloseBtn = () => {
+        log('close button')
+        nervos.appchain.getBalance(this.state.neuronWebAddress).then((res) => {
+            this.setState({
+                inputValue: res / 1e20 * 0.5
+            })
+        })
+    }
 
     render() {
-        const {neuronWebAddress, inputValue} = this.state
-
+        let {isAddressSame, neuronWebAddress, metaMaskAddress, ebcBalance, ethBalance, inputValue} = this.state
         return (
             <div>
                 <Row className='dapp-title'>
                     <Col span={24}>Ether Bridge</Col>
                 </Row>
-                {AccountPanel(neuronWebAddress)}
-                {TokenDisplayPanel()}
-                {SliderPannel(inputValue, this.handleSliderChange)}
-                {InputPanel(inputValue, this.handleSliderChange, this.handleExchange)}
+                {!isAddressSame ?
+                    exchangePanel(
+                        inputValue,
+                        neuronWebAddress,
+                        metaMaskAddress,
+                        ebcBalance,
+                        ethBalance,
+                        this.handleSliderChange,
+                        this.handleExchange,
+                        this.handleCloseBtn)
+                    :
+                    errorNoticePanel()}
             </div>
         )
     }
