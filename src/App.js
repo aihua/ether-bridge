@@ -92,8 +92,7 @@ class App extends React.Component {
         ethBalance: 0,
         ebcBalance: 0,
     }
-    // TODO 滑块显示问题，react 先 render 之后才改变了 ebc 的值，渲染顺序需要调整。
-
+    
     componentDidMount() {
         // log('transferContract', transferContract)
         transferContract.methods.balanceOf(this.state.neuronWebAddress).call().then((res) => {
