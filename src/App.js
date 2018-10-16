@@ -92,7 +92,7 @@ class App extends React.Component {
         ethBalance: 0,
         ebcBalance: 0,
     }
-    
+
     componentDidMount() {
         // log('transferContract', transferContract)
         transferContract.methods.balanceOf(this.state.neuronWebAddress).call().then((res) => {
@@ -130,10 +130,13 @@ class App extends React.Component {
 
     handleCancelBtn = () => {
         log('cancel button')
-        nervos.appchain.getBalance(this.state.neuronWebAddress).then((res) => {
+        transferContract.methods.balanceOf(this.state.neuronWebAddress).call().then((res) => {
             this.setState({
-                inputValue: res
+                ebcBalance: Number(res),
+                inputValue: Number(res),
             })
+        }).catch((err) => {
+            console.log(err.message)
         })
     }
 
