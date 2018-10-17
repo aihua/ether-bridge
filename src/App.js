@@ -11,10 +11,8 @@ import {
     InputNumber,
     Icon,
 } from 'antd';
-const {
-    abi,
-    bytecode
-} = require('./contracts/compiled')
+
+const {abi} = require('./contracts/compiled')
 
 const transaction = require('./contracts/transaction')
 const transferContract = new nervos.appchain.Contract(abi, nervos.contractAddress)
@@ -56,7 +54,6 @@ const exchangePanel = (
                         min={0}
                         max={Number(ethBalance) + Number(ebcBalance)}
                         onChange={handleSliderChange}
-                        // tipFormatter={null}
                         value={typeof inputValue === 'number' ? inputValue : 0}
                         step={0.01}
                     />
@@ -83,6 +80,7 @@ const exchangePanel = (
     )
 }
 
+//TODO 输入框现在有bug，输入数字不能调整 slider
 class App extends React.Component {
     state = {
         metaMaskAddress: window.web3.eth.defaultAccount || '',
@@ -126,6 +124,36 @@ class App extends React.Component {
 
     handleExchange = () => {
         log('exchange button')
+        //TODO 输入框正数时 eth -> ebc 输入框负数时  ebc -> eth
+        let transferVal = Number(this.state.inputValue - this.state.ebcBalance)
+        log(typeof transferVal, transferVal)
+        // log(transferContract.methods)
+        if (transferVal < 0) {
+            // ebc -> eth
+            log('transferVal < 0 ebc -> eth')
+            nervos.appchain.getBlockNumber().then((res) => {
+                const num = Number(res)
+                transaction.validUntilBlock = num + 88
+            }).then(() => {
+                return transferContract.methods.withdraw(Math.abs(transferVal) * 1e18).send(transaction)
+            }).then((result) => {
+                console.log('Waiting for transaction result')
+                // alert('Waiting for transaction result')
+                return nervos.listeners.listenToTransactionReceipt(result.hash)
+            }).then((receipt) => {
+                if (receipt.errorMessage === null) {
+                    console.log('Transaction Done!')
+                    // alert('Transaction Done!')
+                } else {
+                    throw new Error(receipt.errorMessage)
+                }
+            }).catch((err) => {
+                console.log(err.message)
+            })
+        } else {
+            // eth -> ebc
+            window.web3.eth.sendTransaction({'from': this.state.metaMaskAddress}, (err, res) => log(err, res))
+        }
     }
 
     handleCancelBtn = () => {
@@ -147,7 +175,8 @@ class App extends React.Component {
             metaMaskAddress,
             ebcBalance,
             ethBalance,
-            inputValue} = this.state
+            inputValue
+        } = this.state
         return (
             <div>
                 <Row className='dapp-title'>
