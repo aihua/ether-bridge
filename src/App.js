@@ -1,16 +1,13 @@
 import React from "react"
-// import ReactDOM from 'react-dom';
 import "antd/dist/antd.css"
 import "./App.css"
 import nervos from './nervos'
 import {
     Row,
     Col,
-    Button,
-    Slider,
-    InputNumber,
-    Icon,
-} from 'antd';
+} from 'antd'
+
+import SliderPanel from './containers/SliderPanel'
 
 const {abi} = require('./contracts/compiled')
 
@@ -19,84 +16,23 @@ const transferContract = new nervos.appchain.Contract(abi, nervos.contractAddres
 
 const log = console.log.bind(console, '###')
 
-const errorNoticePanel = () => {
-    return (
-        <div>
-            <Col span={24}>MetaMask address is not as same with neuron-web address.</Col>
-        </div>
-    )
-}
-
-const exchangePanel = (
-    inputValue,
-    neuronWebAddress,
-    metaMaskAddress,
-    ebcBalance,
-    ethBalance,
-    handleSliderChange,
-    handleExchange,
-    handleCancelBtn) => {
-    return (
-        <div>
-            <Row>
-                <Col span={24}>neuron-web address: {neuronWebAddress}</Col>
-            </Row>
-            <Row>
-                <Col span={5}>{'eth'}</Col>
-                <Col span={5}>{ethBalance}</Col>
-                <Col span={4}> {'<---------------------->'}</Col>
-                <Col span={5}>{ebcBalance}</Col>
-                <Col span={5}>{'ebc'}</Col>
-            </Row>
-            <Row>
-                <Col span={24}>
-                    <Slider
-                        min={0}
-                        max={Number(ethBalance) + Number(ebcBalance)}
-                        onChange={handleSliderChange}
-                        value={typeof inputValue === 'number' ? inputValue : 0}
-                        step={0.01}
-                    />
-                </Col>
-            </Row>
-            <Row>
-                <Col span={8}>
-                    <Icon type="close-circle" theme="outlined" style={{fontSize: '32px'}} onClick={handleCancelBtn}/>
-                </Col>
-                <Col span={8}>
-                    <InputNumber
-                        min={-Number(ebcBalance)}
-                        max={Number(ethBalance)}
-                        value={Number(inputValue) - Number(ebcBalance)}
-                        step={0.01}
-                        onChange={handleSliderChange}
-                    />
-                </Col>
-                <Col span={8}>
-                    <Button onClick={handleExchange}>exchange</Button>
-                </Col>
-            </Row>
-        </div>
-    )
-}
-
-//TODO 输入框现在有bug，输入数字不能调整 slider
 class App extends React.Component {
     state = {
         metaMaskAddress: window.web3.eth.defaultAccount || '',
         neuronWebAddress: nervos.appchain.defaultAccount || '',
-        isAddressSame: false,
+        isVisible: false,
         inputValue: 0,
         ethBalance: 0,
         ebcBalance: 0,
+        isAddressSame: false,
     }
 
     componentDidMount() {
         // log('transferContract', transferContract)
         transferContract.methods.balanceOf(this.state.neuronWebAddress).call().then((res) => {
             this.setState({
-                ebcBalance: Number(res),
-                inputValue: Number(res),
+                ebcBalance: Number(res) / 1e18,
+                inputValue: Number(res) / 1e18,
             })
         }).catch((err) => {
             console.log(err.message)
@@ -113,61 +49,6 @@ class App extends React.Component {
         })
     }
 
-    handleSliderChange = (value) => {
-        if (isNaN(value)) {
-            return
-        }
-        this.setState({
-            inputValue: value,
-        })
-    }
-
-    handleExchange = () => {
-        log('exchange button')
-        //TODO 输入框正数时 eth -> ebc 输入框负数时  ebc -> eth
-        let transferVal = Number(this.state.inputValue - this.state.ebcBalance)
-        log(typeof transferVal, transferVal)
-        // log(transferContract.methods)
-        if (transferVal < 0) {
-            // ebc -> eth
-            log('transferVal < 0 ebc -> eth')
-            nervos.appchain.getBlockNumber().then((res) => {
-                const num = Number(res)
-                transaction.validUntilBlock = num + 88
-            }).then(() => {
-                return transferContract.methods.withdraw(Math.abs(transferVal) * 1e18).send(transaction)
-            }).then((result) => {
-                console.log('Waiting for transaction result')
-                // alert('Waiting for transaction result')
-                return nervos.listeners.listenToTransactionReceipt(result.hash)
-            }).then((receipt) => {
-                if (receipt.errorMessage === null) {
-                    console.log('Transaction Done!')
-                    // alert('Transaction Done!')
-                } else {
-                    throw new Error(receipt.errorMessage)
-                }
-            }).catch((err) => {
-                console.log(err.message)
-            })
-        } else {
-            // eth -> ebc
-            window.web3.eth.sendTransaction({'from': this.state.metaMaskAddress}, (err, res) => log(err, res))
-        }
-    }
-
-    handleCancelBtn = () => {
-        log('cancel button')
-        transferContract.methods.balanceOf(this.state.neuronWebAddress).call().then((res) => {
-            this.setState({
-                ebcBalance: Number(res),
-                inputValue: Number(res),
-            })
-        }).catch((err) => {
-            console.log(err.message)
-        })
-    }
-
     render() {
         let {
             isAddressSame,
@@ -175,26 +56,44 @@ class App extends React.Component {
             metaMaskAddress,
             ebcBalance,
             ethBalance,
-            inputValue
         } = this.state
+
+        let sliderInfo = {
+            neuronWebAddress,
+            metaMaskAddress,
+            transaction,
+            transferContract,
+        }
+
         return (
-            <div>
-                <Row className='dapp-title'>
-                    <Col span={24}>Ether Bridge</Col>
-                </Row>
-                {isAddressSame ?
-                    exchangePanel(
-                        inputValue,
-                        neuronWebAddress,
-                        metaMaskAddress,
-                        ebcBalance,
-                        ethBalance,
-                        this.handleSliderChange,
-                        this.handleExchange,
-                        this.handleCancelBtn)
-                    :
-                    errorNoticePanel()}
-            </div>
+            isAddressSame ?
+                <React.Fragment>
+                    <Row className='dapp-title'>
+                        <Col span={24}>Ether Bridge</Col>
+                    </Row>
+                    <Row>
+                        <Col span={24}>neuron-web address: {neuronWebAddress}</Col>
+                    </Row>
+                    <Row>
+                        <Col span={5}>{'eth'}</Col>
+                        <Col span={5}>{ethBalance}</Col>
+                        <Col span={4}> {'<---------------------->'}</Col>
+                        <Col span={5}>{ebcBalance}</Col>
+                        <Col span={5}>{'ebc'}</Col>
+                    </Row>
+                    <SliderPanel {...sliderInfo}/>
+                </React.Fragment>
+
+                :
+
+                <React.Fragment>
+                    <Row className='dapp-title'>
+                        <Col span={24}>Ether Bridge</Col>
+                    </Row>
+                    <Row>
+                        <Col span={24}>MetaMask address is not as same with neuron-web address.</Col>
+                    </Row>
+                </React.Fragment>
         )
     }
 }
