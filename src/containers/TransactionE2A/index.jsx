@@ -1,5 +1,6 @@
 import React from 'react';
 import './transactionE2A.css';
+import '../../styles/tx.css';
 import { Row, Col } from 'antd';
 
 class TransactionE2A extends React.Component {
@@ -45,14 +46,11 @@ class TransactionE2A extends React.Component {
         console.log("value: " + this.props.value);
         console.log("Current eth block Number: " + this.state.currentEthBlockNum);
         
-        const left = 3;
-
-        let st1 = {}
         return(
             <div>
                 <div className="transactionMeta" onClick={this.toggleDetails}>
                     <div className="transactionMetaInfo">
-                        <label>value</label>
+                        <label>-{this.props.value} eth -> +{this.props.value} ebc </label>
                         <label>Time</label> 
                     </div>
                     <div className="transctionMetaStatus">

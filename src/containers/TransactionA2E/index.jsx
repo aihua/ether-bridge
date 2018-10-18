@@ -1,32 +1,7 @@
 import React from 'react';
-import "antd/dist/antd.css";
-import "./transactionA2E.css";
+// import "./transactionA2E.css";
 import nervos from '../../nervos';
-
-const transfer = {
-
-    // border: 'black 1px solid',
-    height: '60%',
-    width: '90%',
-    margin: '0 auto'
-};
-
-const status = {
-    marginLeft: '10%',
-    // border: 'black 1px solid',
-}
-
-const detail = {
-    // border: 'black 1px solid',
-}
-
-const detailShow = {
-    display: 'none'
-}
-
-const detailtext = {
-    textAlign: "left"
-}
+import '../../styles/tx.css';
 
 class TransactionA2E extends React.Component {
 
@@ -84,42 +59,64 @@ class TransactionA2E extends React.Component {
 
         return(
             <div>
-                <div id="wrapperStyle">
-                    
-                    <div onClick={this.toggleDetails}>
-                        <div id="infoStyle">
-                            <span>ebc -> ether &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <span>{this.props.value} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <span>{this.props.startedTime}</span>
+                <div className="transactionMeta" onClick={this.toggleDetails}>
+                    <div className="transactionMetaInfo">
+                        <label><label>-{this.props.value} ebc -> +{this.props.value} eth </label></label>
+                        <label>Time</label> 
+                    </div>
+                    <div className="transctionMetaStatus">
+                        <div className="transctionMetaSingleStatus">
+                        {/* 这个状态永远是亮的，因为只要发现了event log即为started状态 */}
+                            <div>转账确认</div>
+                            <img src={"/Rectangle6.png"}/>
+                        </div>
+                        
+                        <div className="transctionMetaSingleStatus">
+                        {/* 检测到pending或者completed这个状态会亮 */}
+                            <div>兑换发起</div>
+                            <label style={{display:'none'}}>转账确认</label>    
+                            <img src={"/Rectangle6_disable.png"}/>
+                            <img src={"/Rectangle6.png"} style={{width:'240px',height:'46px',display:'none'}}/>
                         </div>
 
-                        <div id="statusStyle">
-                            <span style={status}>
-                            {/* 这个状态永远是亮的，因为只要发现了event log即为started状态 */}
-                                <label>转账确认</label>
-                            </span>
-                            <span style={status}>
-                            {/* 检测到pending或者completed这个状态会亮 */}
-                                <label>兑换发起</label>    
-                            </span>
-                            <span style={status}>
-                            {/* 检测到succeeded并且x大于等于三十这个状态会亮 */}
-                                <label></label>
-                                <label>兑换完成</label>    
-                                <label>  --  </label>
-                            </span>
-                        </div>    
-                    </div>
-
-                    <div style={detailShow}>
-                        <div style={detail}>
-                            <p style={detailtext}>转账发起：{this.props.startedTime} </p>
-                            <p style={detailtext}>交易哈希：{this.props.wd_tx_hash}</p>
-                            <p style={detailtext}>转账确认：{this.state.currentEthBlockNum - this.props.eth_block_num}/30</p>
-                            <p style={detailtext}>交易哈希：{this.props.eth_tx_hash}</p>    
+                        <div className="transctionMetaSingleStatus">
+                        {/* 检测到succeeded并且x大于等于三十这个状态会亮 */}
+                            <div>兑换完成 </div>
+                            <label style={{display:'none'}}>兑换确认中</label>
+                            <label style={{display:'none'}}>兑换完成</label>    
+                            <img src={"/Rectangle6_disable.png"}/>
+                            <img src={"/Rectangle6.png"} style={{width:'240px',height:'46px',display:'none'}}/>
                         </div>
                     </div>
                 </div>
+
+
+                {this.state.showDetails &&
+                    <div className="transactionDetail">
+                        <div className="transactionDetailItems">
+                            <div className="transactionDetailSingleItem">
+                                <label>转账发起：</label>
+                                <label style={{float:'right'}}>{this.props.startedTime}</label>
+                            </div>
+                            <div className="transactionDetailSingleItem">
+                                <label>交易哈希：</label> 
+                                <label style={{float:'right'}}>{this.props.wd_tx_hash}</label>
+                            </div>
+                            <div className="transactionDetailSingleItem">
+                                <label>转账确认：</label>
+                                <label style={{float:'right'}}>x/30</label>
+                            </div>
+                            <div className="transactionDetailSingleItem">
+                                <label>转账确认：</label>
+                                <label style={{float:'right'}}>Pending</label>
+                            </div>
+                            <div className="transactionDetailSingleItem">
+                                <label>交易哈希：</label>
+                                <label style={{float:'right'}}>{this.props.eth_tx_hash}</label> 
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         );
     };
