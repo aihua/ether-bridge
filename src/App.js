@@ -8,6 +8,7 @@ import {
 } from 'antd'
 
 import SliderPanel from './containers/SliderPanel'
+import TransctionPanel from './containers/Transactions';
 
 const {abi} = require('./contracts/compiled')
 
@@ -83,6 +84,7 @@ class App extends React.Component {
                         <Col span={5}>{'ebc'}</Col>
                     </Row>
                     <SliderPanel {...sliderInfo}/>
+                    <TransctionPanel />
                 </React.Fragment>
 
                 :
