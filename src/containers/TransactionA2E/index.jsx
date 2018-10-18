@@ -57,20 +57,20 @@ class TransactionA2E extends React.Component {
         const detailShow = this.state.showDetails ? {} : {display: 'none'};
 
 
-        console.log("address: " + this.props.address);
-        console.log("eth_block_num: " + this.props.eth_block_num);
-        console.log("eth_tx_hash: " + this.props.eth_tx_hash);
-        console.log("eth_tx_timestamp: " + this.props.eth_tx_timestamp);
-        console.log("id: " + this.props.id);
-        console.log("initialized_timestamp: " + this.initialized_timestamp);
-        console.log("startedTime: " + this.props.startedTime);
-        console.log("status: " + this.props.status);
-        console.log("status_updated_at: " + this.props.status_updated_at);
-        console.log("txType: " + this.props.txType);
-        console.log("value: " + this.props.value);
-        console.log("wd_block_num: " + this.props.wd_block_num);
-        console.log("wd_tx_hash: " + this.props.wd_tx_hash);
-        console.log("wdid: " + this.props.wdid);
+        // console.log("address: " + this.props.address);
+        // console.log("eth_block_num: " + this.props.eth_block_num);
+        // console.log("eth_tx_hash: " + this.props.eth_tx_hash);
+        // console.log("eth_tx_timestamp: " + this.props.eth_tx_timestamp);
+        // console.log("id: " + this.props.id);
+        // console.log("initialized_timestamp: " + this.initialized_timestamp);
+        // console.log("startedTime: " + this.props.startedTime);
+        // console.log("status: " + this.props.status);
+        // console.log("status_updated_at: " + this.props.status_updated_at);
+        // console.log("txType: " + this.props.txType);
+        // console.log("value: " + this.props.value);
+        // console.log("wd_block_num: " + this.props.wd_block_num);
+        // console.log("wd_tx_hash: " + this.props.wd_tx_hash);
+        // console.log("wdid: " + this.props.wdid);
 
         return(
             <div>

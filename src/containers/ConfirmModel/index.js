@@ -1,14 +1,11 @@
 import React from "react"
 import {Col, Modal, Row} from 'antd'
 import nervos from '../../nervos'
+import './confirmModel.css'
 
 const log = console.log.bind(console, '###')
 
 class ConfirmModel extends React.Component {
-
-    state = {
-        isValuePositive: this.props.inputValue - this.props.ebcBalance < 0 ? false : true
-    }
 
     handleExchange = () => {
         let transferVal = Number(this.props.inputValue - this.props.ebcBalance)
@@ -37,7 +34,9 @@ class ConfirmModel extends React.Component {
             // eth -> ebc
             log('transferVal > 0 eth -> ebc')
             transferVal = window.web3.toWei(Math.abs(transferVal), 'ether')
-            window.web3.eth.sendTransaction({'from': this.props.metaMaskAddress, 'value': transferVal})
+            window.web3.eth.sendTransaction({'from': this.props.metaMaskAddress, 'value': transferVal}, (err, res) => {
+                console.log()
+            })
         }
     }
 
@@ -50,28 +49,32 @@ class ConfirmModel extends React.Component {
     render() {
         // console.log(this.props)
 
-        let transferVal = Math.abs(this.props.inputValue - this.props.ebcBalance)
+        let transferVal = this.props.inputValue - this.props.ebcBalance
         let unit1 = ''
         let unit2 = ''
 
-        if (this.state.isValuePositive) {
-            unit1 = 'eth'
+        if (transferVal > 0) {
+            unit1 = 'ether'
             unit2 = 'ebc'
         } else {
             unit1 = 'ebc'
-            unit2 = 'eth'
+            unit2 = 'ether'
         }
-        //TODO Still working on it
+
         return (
             <Row>
                 <Col span={24}>
                     <Modal
-                        title="Basic Modal"
+                        // title="Basic Modal"
                         visible={this.props.isVisible}
                         onOk={this.handleOK}
                         onCancel={this.props.toggleModel}
+                        centered={true}
                     >
-                        <p>您是确认把 {transferVal} {unit1} 转换为 {transferVal} {unit2} 吗？ </p>
+                        <div className={'confirm-info'}>
+                            <p>确认把 <span>{Math.abs(transferVal)}</span> {unit1}</p>
+                            <p>转换为 <span>{Math.abs(transferVal)}</span> {unit2} 吗？</p>
+                        </div>
                     </Modal>
                 </Col>
             </Row>

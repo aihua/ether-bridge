@@ -36,6 +36,7 @@ class Transactions extends React.Component {
         
 
         let txs = [];
+
         if (!this.isTxsEmpty(tx1) && !this.isTxsEmpty(tx2)) {
             let tx1Type = this.getTxsType(tx1);
             let tx2Type = this.getTxsType(tx2);
@@ -43,7 +44,7 @@ class Transactions extends React.Component {
         }
 
         for (let i = 0; i < txs.length; i++) {
-            if (txs[i]['wd_tx_hash'] != undefined) {
+            if (txs[i]['wd_tx_hash'] !== undefined) {
                 txs[i]['txType'] = 'ebc2eth';
                 txs[i]['startedTime'] = txs[i]['initialized_timestamp'];
             } else {
@@ -68,7 +69,7 @@ class Transactions extends React.Component {
 
         return(
             <div>
-                <h1>These are transactions</h1>
+                <h1 style={{textAlign:'center'}}>These are transactions</h1>
                 {txsToShow}
             </div>
         );

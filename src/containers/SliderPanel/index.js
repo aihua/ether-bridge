@@ -97,7 +97,7 @@ class SliderPanel extends React.Component {
         return (
             <div>
                 <Row>
-                    <Col span={24}>
+                    <Col span={8} offset={8}>
                         <Slider
                             min={0}
                             max={ethBalance + ebcBalance}
@@ -108,10 +108,10 @@ class SliderPanel extends React.Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col span={8}>
-                        <Icon type="close-circle" theme="outlined" style={{fontSize: '32px'}} onClick={this.handleCancelBtn}/>
+                    <Col span={3} offset={8}>
+                        <Button icon="undo" onClick={this.handleCancelBtn}>Reset</Button>
                     </Col>
-                    <Col span={8}>
+                    <Col span={2}>
                         <InputNumber
                             min={-ebcBalance}
                             max={ethBalance}
@@ -120,8 +120,8 @@ class SliderPanel extends React.Component {
                             onChange={(value) => {this.handleSliderChange(value + ebcBalance)}}
                         />
                     </Col>
-                    <Col span={8}>
-                        <Button onClick={this.toggleModel}>exchange</Button>
+                    <Col span={3}>
+                        <Button type={"primary"} onClick={this.toggleModel}>exchange</Button>
                     </Col>
                 </Row>
                 <ConfirmModel {...transInfo} toggleModel = {this.toggleModel.bind(this)}/>

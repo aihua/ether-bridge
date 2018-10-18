@@ -1,5 +1,4 @@
 import React from "react"
-import "antd/dist/antd.css"
 import "./App.css"
 import nervos from './nervos'
 import {
@@ -71,17 +70,17 @@ class App extends React.Component {
             isAddressSame ?
                 <React.Fragment>
                     <Row className='dapp-title'>
-                        <Col span={24}>Ether Bridge</Col>
+                        <Col span={24} >Ether Bridge</Col>
+                    </Row>
+                    <Row className='account-address'>
+                        <Col span={24}>Address: {neuronWebAddress}</Col>
                     </Row>
                     <Row>
-                        <Col span={24}>neuron-web address: {neuronWebAddress}</Col>
-                    </Row>
-                    <Row>
-                        <Col span={5}>{'eth'}</Col>
-                        <Col span={5}>{ethBalance}</Col>
-                        <Col span={4}> {'<---------------------->'}</Col>
-                        <Col span={5}>{ebcBalance}</Col>
-                        <Col span={5}>{'ebc'}</Col>
+                        <Col span={8}>{'eth'} {ethBalance}</Col>
+                        {/*<Col span={5}>{ethBalance}</Col>*/}
+                        <Col span={8}> {'<---------------------->'}</Col>
+                        <Col span={8}>{ebcBalance} {'ebc'}</Col>
+                        {/*<Col span={8}>{'ebc'}</Col>*/}
                     </Row>
                     <SliderPanel {...sliderInfo}/>
                     <TransctionPanel />

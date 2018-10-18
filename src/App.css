@@ -2,14 +2,37 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+.ant-row {
     text-align: center;
 }
-
-.ant-layout-header,
-.ant-layout-footer,
-.ant-layout-content {
-    background: #fff;
-    color: #000;
+.dapp-title {
+    /*width: 172px;*/
+    height: 33px;
+    font-family: Arial;
+    font-size: 30px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #2b2e36;
+    margin-bottom: 25px;
+    margin-top: 101px;
+    /*text-align: center;*/
 }
 
-
+.account-address {
+    /*width: 415px;*/
+    height: 25px;
+    font-family: Arial;
+    font-size: 22px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #a7a9b4;
+    /*text-align: center;*/
+}
