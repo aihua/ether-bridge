@@ -12,26 +12,40 @@ class Transactions extends React.Component {
         }
     }
 
+    //get the type of txs" ebc_to_eths or eth_to_ebcs
+    getTxsType(undecidedTxs) {
+        if (undecidedTxs != undefined && undecidedTxs['result'] != undefined && undecidedTxs['result']['ebc_to_eths']!= undefined) {
+            return 'ebc_to_eths';
+        } else if (undecidedTxs != undefined && undecidedTxs['result'] != undefined && undecidedTxs['result']['eth_to_ebcs']!= undefined) {
+            return 'eth_to_ebcs';
+        } else {
+            return 'na';
+        }
+    }
+
+    //check if transactions are available
+    isTxsEmpty(unsuredTxs) {
+        return this.getTxsType(unsuredTxs) == 'na'
+    }
+
     render() {
         console.log("Transactions rendering... Getting transactions from Db");
         let { transactions } = this.state;
-
         let tx1 = transactions[0];
         let tx2 = transactions[1];
+        
 
         let txs = [];
-        if (tx1 != undefined && tx2 != undefined && tx1.data != undefined && tx2.data != undefined) {
-            txs = [...tx1.data, ...tx2.data]
-        } else if (tx1 != undefined && tx1.data != undefined) {
-            txs = [...tx1.data]
-        } else if (tx2 != undefined && tx2.data != undefined) {
-            txs = [...tx2.data]
+        if (!this.isTxsEmpty(tx1) && !this.isTxsEmpty(tx2)) {
+            let tx1Type = this.getTxsType(tx1);
+            let tx2Type = this.getTxsType(tx2);
+            txs = [...tx1['result'][tx1Type], ...tx2['result'][tx2Type]];
         }
 
         for (let i = 0; i < txs.length; i++) {
             if (txs[i]['wd_tx_hash'] != undefined) {
                 txs[i]['txType'] = 'ebc2eth';
-                txs[i]['startedTime'] = txs[i]['initialized_at'];
+                txs[i]['startedTime'] = txs[i]['initialized_timestamp'];
             } else {
                 txs[i]['txType'] = 'eth2ebc';
                 txs[i]['startedTime'] = txs[i]['eth_block_timestamp'];
@@ -69,13 +83,19 @@ class Transactions extends React.Component {
     }
 
     getEbc2EthData() {
-        return fetch("https://easy-mock.com/mock/5bc588a93a429b1815e0f4d9/etherbridge/get-ebc-to-ether", {
+        // return fetch("https://easy-mock.com/mock/5bc588a93a429b1815e0f4d9/etherbridge/get-ebc-to-ether", {
+        //     method: "GET"
+        // }).then(res => res.json());
+        return fetch("http://47.97.171.140:17400/api/v1/ebc_to_eths", {
             method: "GET"
         }).then(res => res.json());
     }
 
     getEth2EbcData() {
-        return fetch("https://easy-mock.com/mock/5bc588a93a429b1815e0f4d9/etherbridge/get-ether-to-ebc", {
+        // return fetch("https://easy-mock.com/mock/5bc588a93a429b1815e0f4d9/etherbridge/get-ether-to-ebc", {
+        //     method: "GET"
+        // }).then(res => res.json());
+        return fetch("http://47.97.171.140:17400/api/v1/eth_to_ebcs?page=1&per_page=20", {
             method: "GET"
         }).then(res => res.json());
     }
