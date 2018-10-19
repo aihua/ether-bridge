@@ -75,12 +75,24 @@ class App extends React.Component {
                     <Row className='account-address'>
                         <Col span={24}>Address: {neuronWebAddress}</Col>
                     </Row>
-                    <Row>
-                        <Col span={8}>{'eth'} {ethBalance}</Col>
-                        {/*<Col span={5}>{ethBalance}</Col>*/}
-                        <Col span={8}> {'<---------------------->'}</Col>
-                        <Col span={8}>{ebcBalance} {'ebc'}</Col>
-                        {/*<Col span={8}>{'ebc'}</Col>*/}
+                    <Row className='account-token'>
+                        <Col className='token-icon' span={2} offset={6}>
+                            <img src="/ether-icon.png" alt=""/>
+                        </Col>
+                        <Col className='Rectangle-2' span={3}>
+                                {<span className={'ether'}>ether</span>}
+                                {<span className={'token-value'}>{ethBalance}</span>}
+                        </Col>
+                        <Col className='token-icon' span={2}>
+                            <img className='exchange-icon' src="/exchange-icon.png" alt=""/>
+                        </Col>
+                        <Col className='token-icon' span={2} >
+                            <img src="/ebc-icon.png" alt=""/>
+                        </Col>
+                        <Col className='Rectangle-2' span={3}>
+                            {<span className={'ether'}>ebc</span>}
+                            {<span className={'token-value'}>{ebcBalance.toFixed(2)}</span>}
+                        </Col>
                     </Row>
                     <SliderPanel {...sliderInfo}/>
                     <TransctionPanel />

@@ -68,8 +68,7 @@ class Transactions extends React.Component {
         })
 
         return(
-            <div>
-                <h1 style={{textAlign:'center'}}>These are transactions</h1>
+            <div className='txs-to-show'>
                 {txsToShow}
             </div>
         );

@@ -7,7 +7,7 @@ import {
     InputNumber,
     Icon,
 } from 'antd'
-
+import './sliderPanel.css'
 import ConfirmModel from '../ConfirmModel'
 
 const log = console.log.bind(console, '###')
@@ -96,7 +96,7 @@ class SliderPanel extends React.Component {
         //TODO Input Form has BUG
         return (
             <div>
-                <Row>
+                <Row className='token-slider'>
                     <Col span={8} offset={8}>
                         <Slider
                             min={0}
@@ -109,19 +109,20 @@ class SliderPanel extends React.Component {
                 </Row>
                 <Row>
                     <Col span={3} offset={8}>
-                        <Button icon="undo" onClick={this.handleCancelBtn}>Reset</Button>
+                        <Button size='large' icon="undo" onClick={this.handleCancelBtn}>Reset</Button>
                     </Col>
                     <Col span={2}>
                         <InputNumber
                             min={-ebcBalance}
                             max={ethBalance}
                             value={inputValue - ebcBalance}
-                            step={1}
+                            step={0.01}
+                            size={'large'}
                             onChange={(value) => {this.handleSliderChange(value + ebcBalance)}}
                         />
                     </Col>
                     <Col span={3}>
-                        <Button type={"primary"} onClick={this.toggleModel}>exchange</Button>
+                        <Button size='large' type={"primary"} onClick={this.toggleModel}>exchange</Button>
                     </Col>
                 </Row>
                 <ConfirmModel {...transInfo} toggleModel = {this.toggleModel.bind(this)}/>
