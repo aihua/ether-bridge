@@ -1,5 +1,4 @@
 import React from "react"
-import "antd/dist/antd.css"
 import "./App.css"
 import nervos from './nervos'
 import {
@@ -71,17 +70,29 @@ class App extends React.Component {
             isAddressSame ?
                 <React.Fragment>
                     <Row className='dapp-title'>
-                        <Col span={24}>Ether Bridge</Col>
+                        <Col span={24} >Ether Bridge</Col>
                     </Row>
-                    <Row>
-                        <Col span={24}>neuron-web address: {neuronWebAddress}</Col>
+                    <Row className='account-address'>
+                        <Col span={24}>Address: {neuronWebAddress}</Col>
                     </Row>
-                    <Row>
-                        <Col span={5}>{'eth'}</Col>
-                        <Col span={5}>{ethBalance}</Col>
-                        <Col span={4}> {'<---------------------->'}</Col>
-                        <Col span={5}>{ebcBalance}</Col>
-                        <Col span={5}>{'ebc'}</Col>
+                    <Row className='account-token'>
+                        <Col className='token-icon' span={2} offset={6}>
+                            <img src="/ether-icon.png" alt=""/>
+                        </Col>
+                        <Col className='Rectangle-2' span={3}>
+                                {<span className={'ether'}>ether</span>}
+                                {<span className={'token-value'}>{ethBalance.toFixed(2)}</span>}
+                        </Col>
+                        <Col className='token-icon' span={2}>
+                            <img className='exchange-icon' src="/exchange-icon.png" alt=""/>
+                        </Col>
+                        <Col className='token-icon' span={2} >
+                            <img src="/ebc-icon.png" alt=""/>
+                        </Col>
+                        <Col className='Rectangle-2' span={3}>
+                            {<span className={'ether'}>ebc</span>}
+                            {<span className={'token-value'}>{ebcBalance.toFixed(2)}</span>}
+                        </Col>
                     </Row>
                     <SliderPanel {...sliderInfo}/>
                     <TransctionPanel />

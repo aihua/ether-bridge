@@ -1,7 +1,6 @@
 import React from 'react';
 import './transactionE2A.css';
 import '../../styles/tx.css';
-import { Row, Col } from 'antd';
 
 class TransactionE2A extends React.Component {
 
@@ -40,21 +39,21 @@ class TransactionE2A extends React.Component {
     render() {
         const detailShow = this.state.showDetails ? {} : {display: 'none'};
 
-        console.log("ac_block_number: " + this.props.ac_block_number);
-        console.log("ac_block_timestamp: " + this.props.ac_block_timestamp);
-        console.log("ac_tx_at: " + this.props.ac_tx_at);
-        console.log("ac_tx_hash: " + this.props.ac_tx_hash);
-        console.log("props.address: " + this.props.address);
-        console.log("eth_block_num: " + this.props.eth_block_num);
-        console.log("eth_block_timestamp: " + this.props.eth_block_timestamp);
-        console.log("eth_tx_hash: " + this.props.eth_tx_hash);
-        console.log("id: " + this.props.id);
-        console.log("startedTime: " + this.props.startedTime);
-        console.log("status: " + this.props.status);
-        console.log("status_update_at: " + this.props.status_update_at);
-        console.log("txType: " + this.props.txType);
-        console.log("value: " + this.props.value);
-        console.log("Current eth block Number: " + this.state.currentEthBlockNum);
+        // console.log("ac_block_number: " + this.props.ac_block_number);
+        // console.log("ac_block_timestamp: " + this.props.ac_block_timestamp);
+        // console.log("ac_tx_at: " + this.props.ac_tx_at);
+        // console.log("ac_tx_hash: " + this.props.ac_tx_hash);
+        // console.log("props.address: " + this.props.address);
+        // console.log("eth_block_num: " + this.props.eth_block_num);
+        // console.log("eth_block_timestamp: " + this.props.eth_block_timestamp);
+        // console.log("eth_tx_hash: " + this.props.eth_tx_hash);
+        // console.log("id: " + this.props.id);
+        // console.log("startedTime: " + this.props.startedTime);
+        // console.log("status: " + this.props.status);
+        // console.log("status_update_at: " + this.props.status_update_at);
+        // console.log("txType: " + this.props.txType);
+        // console.log("value: " + this.props.value);
+        // console.log("Current eth block Number: " + this.state.currentEthBlockNum);
         
         return(
             <div>
@@ -67,7 +66,7 @@ class TransactionE2A extends React.Component {
                         <div className="transctionMetaSingleStatus">
                             {/* 初始状态为已经得到eth的block，eth交易已经入块 */}
                             <div>转账发起</div>
-                            <img src={"/Rectangle6.png"}/>
+                            <img src={'/Rectangle6.png'}/>
                         </div>
                         
                         <div className="transctionMetaSingleStatus">
