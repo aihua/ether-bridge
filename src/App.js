@@ -75,23 +75,23 @@ class App extends React.Component {
                     <Row className='account-address'>
                         <Col span={24}>Address: {neuronWebAddress}</Col>
                     </Row>
-                    <Row className='account-token'>
-                        <Col className='token-icon' span={2} offset={6}>
+                    <Row type="flex" justify="center" className='account-token'>
+                        <Col className='token-icon' span={3}>
                             <img src="/ether-icon.png" alt=""/>
                         </Col>
-                        <Col className='Rectangle-2' span={3}>
-                                {<span className={'ether'}>ether</span>}
-                                {<span className={'token-value'}>{ethBalance.toFixed(2)}</span>}
+                        <Col className='Rectangle-2' span={8}>
+                                <span className={'ether'}>ether</span>
+                                <span className={'token-value'}>{ethBalance.toFixed(2)}</span>
                         </Col>
                         <Col className='token-icon' span={2}>
                             <img className='exchange-icon' src="/exchange-icon.png" alt=""/>
                         </Col>
-                        <Col className='token-icon' span={2} >
+                        <Col className='token-icon' span={3} >
                             <img src="/ebc-icon.png" alt=""/>
                         </Col>
-                        <Col className='Rectangle-2' span={3}>
-                            {<span className={'ether'}>ebc</span>}
-                            {<span className={'token-value'}>{ebcBalance.toFixed(2)}</span>}
+                        <Col className='Rectangle-2' span={8}>
+                            <span className={'ether'}>ebc</span>
+                            <span className={'token-value'}>{ebcBalance.toFixed(2)}</span>
                         </Col>
                     </Row>
                     <SliderPanel {...sliderInfo}/>

@@ -45,6 +45,7 @@
     height: 84px;
     background-color: rgba(75, 188, 142, 0.07);
     padding-top: 26px;
+    text-align: center;
 }
 
 .ether {
@@ -72,6 +73,12 @@
     line-height: normal;
     letter-spacing: normal;
     color: #2b2e36;
+}
+
+.token-icon {
+    width: 98px;
+    height: 84px;
+    text-align: center;
 }
 
 .token-icon > img {
