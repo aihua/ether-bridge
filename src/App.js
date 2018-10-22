@@ -69,6 +69,9 @@ class App extends React.Component {
         return (
             isAddressSame ?
                 <React.Fragment>
+                    <Row className='header-banner'>
+                        <Col span={24} ></Col>
+                    </Row>
                     <Row className='dapp-title'>
                         <Col span={24} >Ether Bridge</Col>
                     </Row>
@@ -95,17 +98,26 @@ class App extends React.Component {
                         </Col>
                     </Row>
                     <SliderPanel {...sliderInfo}/>
-                    <TransctionPanel />
+                    <TransctionPanel neuronWebAddress={neuronWebAddress}/>
+                    <Row className='footer-banner'>
+                        <Col span={24} ></Col>
+                    </Row>
                 </React.Fragment>
 
                 :
 
                 <React.Fragment>
+                    <Row className='header-banner'>
+                        <Col span={24} ></Col>
+                    </Row>
                     <Row className='dapp-title'>
                         <Col span={24}>Ether Bridge</Col>
                     </Row>
                     <Row>
                         <Col span={24}>MetaMask address is not as same with neuron-web address.</Col>
+                    </Row>
+                    <Row className='footer-banner'>
+                        <Col span={24} ></Col>
                     </Row>
                 </React.Fragment>
         )

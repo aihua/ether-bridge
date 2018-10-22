@@ -2,9 +2,9 @@
     margin-top: 60px;
 }
 .transactionMeta {
-    width:40.8%; 
+    width:40.8%;
     height: 165px; 
-    margin-left: 28.5%; 
+    margin-left: 28.5%;
     background-color: #f4f6f6;
     margin-bottom: 12px;
 }
@@ -23,6 +23,10 @@
             float: right; 
             margin-bottom: 27px; 
             margin-right: 2.8%
+        }
+
+        .anticon-clock-circle {
+            margin-right: 5px;
         }
 
     .transctionMetaStatus {
@@ -57,7 +61,7 @@
 }
 
     .transactionDetailItems {
-        width: 91.6%; 
+        width: 91.6%;
         height: 184px; 
         margin-left: 4.8%; 
         padding-top: 12px;
@@ -67,7 +71,7 @@
 
         .transactionDetailSingleItem {
             text-align: left; 
-            width: 97.7%; 
+            width: 97.7%;
             margin-bottom: 12px; 
             margin-left: 1.15%
         }

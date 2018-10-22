@@ -95,7 +95,7 @@ class SliderPanel extends React.Component {
 
         //TODO Input Form has BUG
         return (
-            <div>
+            <div className='slider-panel'>
                 <Row type="flex" justify="center" className='token-slider'>
                     <Col span={8}>
                         <Slider
