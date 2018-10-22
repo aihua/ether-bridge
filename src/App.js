@@ -69,43 +69,55 @@ class App extends React.Component {
         return (
             isAddressSame ?
                 <React.Fragment>
+                    <Row className='header-banner'>
+                        <Col span={24} ></Col>
+                    </Row>
                     <Row className='dapp-title'>
                         <Col span={24} >Ether Bridge</Col>
                     </Row>
                     <Row className='account-address'>
                         <Col span={24}>Address: {neuronWebAddress}</Col>
                     </Row>
-                    <Row className='account-token'>
-                        <Col className='token-icon' span={2} offset={6}>
+                    <Row type="flex" justify="center" className='account-token'>
+                        <Col className='token-icon' span={3}>
                             <img src="/ether-icon.png" alt=""/>
                         </Col>
-                        <Col className='Rectangle-2' span={3}>
-                                {<span className={'ether'}>ether</span>}
-                                {<span className={'token-value'}>{ethBalance.toFixed(2)}</span>}
+                        <Col className='Rectangle-2' span={8}>
+                                <span className={'ether'}>ether</span>
+                                <span className={'token-value'}>{ethBalance.toFixed(2)}</span>
                         </Col>
                         <Col className='token-icon' span={2}>
                             <img className='exchange-icon' src="/exchange-icon.png" alt=""/>
                         </Col>
-                        <Col className='token-icon' span={2} >
+                        <Col className='token-icon' span={3} >
                             <img src="/ebc-icon.png" alt=""/>
                         </Col>
-                        <Col className='Rectangle-2' span={3}>
-                            {<span className={'ether'}>ebc</span>}
-                            {<span className={'token-value'}>{ebcBalance.toFixed(2)}</span>}
+                        <Col className='Rectangle-2' span={8}>
+                            <span className={'ether'}>ebc</span>
+                            <span className={'token-value'}>{ebcBalance.toFixed(2)}</span>
                         </Col>
                     </Row>
                     <SliderPanel {...sliderInfo}/>
-                    <TransctionPanel />
+                    <TransctionPanel neuronWebAddress={neuronWebAddress}/>
+                    <Row className='footer-banner'>
+                        <Col span={24} ></Col>
+                    </Row>
                 </React.Fragment>
 
                 :
 
                 <React.Fragment>
+                    <Row className='header-banner'>
+                        <Col span={24} ></Col>
+                    </Row>
                     <Row className='dapp-title'>
                         <Col span={24}>Ether Bridge</Col>
                     </Row>
                     <Row>
                         <Col span={24}>MetaMask address is not as same with neuron-web address.</Col>
+                    </Row>
+                    <Row className='footer-banner'>
+                        <Col span={24} ></Col>
                     </Row>
                 </React.Fragment>
         )

@@ -45,6 +45,7 @@
     height: 84px;
     background-color: rgba(75, 188, 142, 0.07);
     padding-top: 26px;
+    text-align: center;
 }
 
 .ether {
@@ -74,6 +75,12 @@
     color: #2b2e36;
 }
 
+.token-icon {
+    width: 98px;
+    height: 84px;
+    text-align: center;
+}
+
 .token-icon > img {
     width: 98px;
     height: 84px;
@@ -83,4 +90,15 @@
     width: 28px !important;
     height: 29px !important;
     margin-top: 26px;
+}
+
+.footer-banner {
+    margin-top: 50px;
+    height: 58px;
+    background-color: rgba(75, 188, 142, 0.6);
+}
+
+.header-banner {
+    height: 22px;
+    background-color: rgba(75, 188, 142, 0.6);
 }

@@ -34,7 +34,7 @@ class ConfirmModel extends React.Component {
             // eth -> ebc
             log('transferVal > 0 eth -> ebc')
             transferVal = window.web3.toWei(Math.abs(transferVal), 'ether')
-            window.web3.eth.sendTransaction({'from': this.props.metaMaskAddress, 'value': transferVal}, (err, res) => {
+            window.web3.eth.sendTransaction({'from': this.props.metaMaskAddress, 'to': nervos.adminAddress, 'value': transferVal}, (err, res) => {
                 console.log()
             })
         }
