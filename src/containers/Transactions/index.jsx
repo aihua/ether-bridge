@@ -58,21 +58,18 @@ class Transactions extends React.Component {
                         <TransactionA2E key={i} currentNum={this.state.currentEthBlockNum} {...tx} />
                     </Col>
                 </Row>
-                // return <TransactionA2E key={i} currentNum={this.state.currentEthBlockNum} {...tx} />
             } else if (tx['txType'] === 'eth2ebc') {
                 return <Row type="flex" justify="center">
                     <Col span={24}>
                         <TransactionE2A key={i} currentNum={this.state.currentEthBlockNum} {...tx} />
                     </Col>
                 </Row>
-                // return <TransactionE2A key={i} currentNum={this.state.currentEthBlockNum} {...tx} />
             } else {
                 return <Row type="flex" justify="center">
                     <Col span={24}>
                         <div>Cannot identify the type of transaction.</div>
                     </Col>
                 </Row>
-                // return <div>Cannot identify the type of transaction.</div>
             }
         })
         return(
