@@ -42,6 +42,11 @@ class TransactionE2A extends React.Component {
         nervos.appchain.getBlockNumber().then(res => this.setState({
             currentEthBlockNum: res
         }));
+        setTimeout(_ => this.getBlockNumber(), 5000);
+    }
+
+    componentDidMount() {
+        this.getBlockNumber();
     }
 
     parseTimeStamp = (timestamp) => {
@@ -116,7 +121,7 @@ class TransactionE2A extends React.Component {
                     <div className="transactionDetailItems">
                         <div className="transactionDetailSingleItem">
                             <label>转账发起：</label>
-                            <label style={{float: 'right'}}>{this.parseTimeStamp(this.props.startedTime * 1000)}</label>
+                            <label style={{float: 'right'}}>{this.parseTimeStamp(this.props.startedTime)}</label>
                         </div>
                         <div className="transactionDetailSingleItem">
                             <label>交易哈希：</label>
@@ -126,9 +131,9 @@ class TransactionE2A extends React.Component {
                             <label>转账确认：</label>
                             {/* 初始状态（即已经获取到了eth hash和blockNum），是要显示 confirmation 数量*/}
                             {this.getStatusNum(this.props.status) === 1 && <label
-                                style={{float: 'right'}}>{Number(this.getBlockNumber() - this.props.eth_block_num)}/30</label>}
+                                style={{float: 'right'}}>{Number(this.state.currentEthBlockNum - this.props.eth_block_num)}/30</label>}
                             {(this.getStatusNum(this.props.status) > 1 && this.getStatusNum(this.props.status) < 5) &&
-                            <label style={{float: 'right'}}>30/30</label>}
+                            <label style={{float: 'right'}}>Number(this.state.currentEthBlockNum - this.props.eth_block_num)}/30</label>}
                             {/* 这以上的三个信息页面不需要显示失败状态，因为两个已经显示，这个只要交易能取到，肯定要显示块高 */}
                         </div>
                         <div className="transactionDetailSingleItem">
