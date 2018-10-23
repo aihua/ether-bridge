@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.ant-row {
+    text-align: center;
+}
+.dapp-title {
+    /*width: 172px;*/
+    height: 33px;
+    font-family: Arial;
+    font-size: 30px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #2b2e36;
+    margin-bottom: 25px;
+    margin-top: 101px;
+}
+
+.account-address {
+    /*width: 415px;*/
+    height: 25px;
+    font-family: Arial;
+    font-size: 22px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #a7a9b4;
+}
+
+.account-token {
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+.Rectangle-2 {
+    width: 176px;
+    height: 84px;
+    background-color: rgba(75, 188, 142, 0.07);
+    padding-top: 26px;
+    text-align: center;
+}
+
+.ether {
+    width: 55px;
+    height: 27px;
+    font-family: Arial;
+    font-size: 24px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #565966;
+    margin-right: 16px;
+}
+
+.token-value {
+    width: 45px;
+    height: 36px;
+    font-family: Arial;
+    font-size: 32px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #2b2e36;
+}
+
+.token-icon {
+    width: 98px;
+    height: 84px;
+    text-align: center;
+}
+
+.token-icon > img {
+    width: 98px;
+    height: 84px;
+}
+
+.exchange-icon {
+    width: 28px !important;
+    height: 29px !important;
+    margin-top: 26px;
+}
+
+.footer-banner {
+    margin-top: 50px;
+    height: 58px;
+    background-color: rgba(75, 188, 142, 0.6);
+}
+
+.header-banner {
+    height: 22px;
+    background-color: rgba(75, 188, 142, 0.6);
+}
