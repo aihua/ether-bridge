@@ -2,9 +2,10 @@ import React from 'react';
 // import "./transactionA2E.css";
 import nervos from '../../nervos';
 import '../../styles/tx.css';
-import { Icon } from "antd";
+import {Icon} from "antd";
 
 const log = console.log.bind(console)
+
 class TransactionA2E extends React.Component {
 
 
@@ -44,7 +45,7 @@ class TransactionA2E extends React.Component {
 
     toggleDetails() {
         console.log("toggled")
-        if(this.state.showDetails) {
+        if (this.state.showDetails) {
             this.setState({
                 showDetails: false
             });
@@ -58,25 +59,27 @@ class TransactionA2E extends React.Component {
     parseTimeStamp = (timestamp) => {
         let date = new Date(timestamp)
         let Y = date.getFullYear() + '-'
-        let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-'
+        let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-'
         let D = date.getDate() + ' '
-        let h = (date.getHours() < 10 ? '0'+date.getHours() : date.getHours()) + ':'
-        let m = (date.getMinutes() < 10 ? '0'+ date.getMinutes() : date.getMinutes())
+        let h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':'
+        let m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes())
         return Y + M + D + h + m
     }
 
     parseValue = (value) => {
-        return ( value / 1e18 ).toFixed(2)
+        return (value / 1e18).toFixed(2)
     }
 
     render() {
 
-        return(
+        return (
             <div>
                 <div className="transactionMeta" onClick={this.toggleDetails}>
                     <div className="transactionMetaInfo">
-                        <label>-{this.parseValue(this.props.value)} ebc -> +{this.parseValue(this.props.value)} eth </label>
-                        <label><Icon type="clock-circle" theme="outlined" />{this.parseTimeStamp(this.props.startedTime)}</label>
+                        <label>-{this.parseValue(this.props.value)} ebc ->
+                            +{this.parseValue(this.props.value)} eth </label>
+                        <label><Icon type="clock-circle" theme="outlined"/>{this.parseTimeStamp(this.props.startedTime)}
+                        </label>
                     </div>
                     <div className="transctionMetaStatus">
                         <div className="transctionMetaSingleStatus">
@@ -89,11 +92,14 @@ class TransactionA2E extends React.Component {
                         <div className="transctionMetaSingleStatus">
                             {/* 拿到eth hash之前为 -- */}
                             {this.getStatusNum(this.props.status) === 1 && <div>&nbsp;&nbsp;&nbsp;&nbsp;--</div>}
-                            {this.getStatusNum(this.props.status) === 1 && <img src={"/Rectangle6_disable.png"} alt="disabled"/>}
+                            {this.getStatusNum(this.props.status) === 1 &&
+                            <img src={"/Rectangle6_disable.png"} alt="disabled"/>}
 
                             {/* 拿到eth hash之后即点亮，并切换为兑换发起 */}
-                            {(this.getStatusNum(this.props.status) > 1 && this.getStatusNum(this.props.status) < 5) && <div>兑换发起</div>}
-                            {(this.getStatusNum(this.props.status) > 1 && this.getStatusNum(this.props.status) < 5) && <img src={"/Rectangle6.png"} alt="enabled"/>}
+                            {(this.getStatusNum(this.props.status) > 1 && this.getStatusNum(this.props.status) < 5) &&
+                            <div>兑换发起</div>}
+                            {(this.getStatusNum(this.props.status) > 1 && this.getStatusNum(this.props.status) < 5) &&
+                            <img src={"/Rectangle6.png"} alt="enabled"/>}
 
                             {/* 该状态页暂不考虑失败状态，因为有多种原因 */}
                         </div>
@@ -101,11 +107,14 @@ class TransactionA2E extends React.Component {
                         <div className="transctionMetaSingleStatus">
                             {/* 得到eth hash 以前为 -- */}
                             {this.getStatusNum(this.props.status) === 1 && <div>&nbsp;&nbsp;&nbsp;&nbsp;-- </div>}
-                            {this.getStatusNum(this.props.status) === 1 && <img src={"/Rectangle6_disable.png"} alt="disabled"/>}
+                            {this.getStatusNum(this.props.status) === 1 &&
+                            <img src={"/Rectangle6_disable.png"} alt="disabled"/>}
 
                             {/* 得到eth hash 以后切换为兑换确认中，但不点亮 */}
-                            {(this.getStatusNum(this.props.status) === 2 || this.getStatusNum(this.props.status) === 3) && <div>兑换确认中</div>}
-                            {(this.getStatusNum(this.props.status) === 2 || this.getStatusNum(this.props.status) === 3) && <img src={"/Rectangle6_disable.png"} alt="disabled"/>}
+                            {(this.getStatusNum(this.props.status) === 2 || this.getStatusNum(this.props.status) === 3) &&
+                            <div>兑换确认中</div>}
+                            {(this.getStatusNum(this.props.status) === 2 || this.getStatusNum(this.props.status) === 3) &&
+                            <img src={"/Rectangle6_disable.png"} alt="disabled"/>}
 
                             {/* 得到30个确认，切换为兑换完成，并且点亮 */}
                             {this.getStatusNum(this.props.status) === 4 && <div>兑换完成</div>}
@@ -113,7 +122,8 @@ class TransactionA2E extends React.Component {
 
                             {/* 失败页面显示页面，不点亮 */}
                             {this.getStatusNum(this.props.status) === 5 && <div>兑换完成</div>}
-                            {this.getStatusNum(this.props.status) === 5 && <img src={"/Rectangle6.png"} alt="disabled"/>}
+                            {this.getStatusNum(this.props.status) === 5 &&
+                            <img src={"/Rectangle6.png"} alt="disabled"/>}
 
                         </div>
                     </div>
@@ -125,39 +135,50 @@ class TransactionA2E extends React.Component {
                     <div className="transactionDetailItems">
                         <div className="transactionDetailSingleItem">
                             <label>转账发起：</label>
-                            <label style={{float:'right'}}>{this.parseTimeStamp(this.props.startedTime)}</label>
+                            <label style={{float: 'right'}}>{this.parseTimeStamp(this.props.startedTime)}</label>
                         </div>
                         <div className="transactionDetailSingleItem">
                             <label>交易哈希：</label>
-                            <label style={{float:'right'}}>{this.props.wd_tx_hash}</label>
+                            <label style={{float: 'right'}}>{this.props.wd_tx_hash}</label>
                         </div>
                         <div className="transactionDetailSingleItem">
                             <label>兑换确认：</label>
-                            {this.getStatusNum(this.props.status) === 1 && <label style={{float:'right'}}>NA</label>}
-                            {this.getStatusNum(this.props.status) === 2 && <label style={{float:'right'}}>0/30</label>}
-                            {this.getStatusNum(this.props.status) === 3 && <label style={{float:'right'}}>{this.getBlockNumber() - this.props.eth_block_num}/30</label>}
-                            {this.getStatusNum(this.props.status) === 4 && <label style={{float:'right'}}>30/30</label>}
+                            {this.getStatusNum(this.props.status) === 1 && <label style={{float: 'right'}}>NA</label>}
+                            {this.getStatusNum(this.props.status) === 2 && <label style={{float: 'right'}}>0/30</label>}
+                            {this.getStatusNum(this.props.status) === 3 && <label
+                                style={{float: 'right'}}>{Number(this.getBlockNumber() - this.props.eth_block_num)}/30</label>}
+                            {this.getStatusNum(this.props.status) === 4 &&
+                            <label style={{float: 'right'}}>30/30</label>}
                             {/* 暂不考虑失败状态，虽然有可能这个阶段是成功的，但是标注为Failed */}
-                            {this.getStatusNum(this.props.status) === 5 && <label style={{float:'right'}}>Failed</label>}
+                            {this.getStatusNum(this.props.status) === 5 &&
+                            <label style={{float: 'right'}}>Failed</label>}
                         </div>
                         <div className="transactionDetailSingleItem">
                             <label>转账确认：</label>
-                            <label style={{float:'right'}}>
-                                {this.getStatusNum(this.props.status) === 1 && <label style={{float:'right'}}>NA</label>}
-                                {this.getStatusNum(this.props.status) === 2 && <label style={{float:'right'}}>尚未入块</label>}
-                                {this.getStatusNum(this.props.status) === 3 && <label style={{float:'right'}}>Pending</label>}
-                                {this.getStatusNum(this.props.status) === 4 && <label style={{float:'right'}}>Completed</label>}
+                            <label style={{float: 'right'}}>
+                                {this.getStatusNum(this.props.status) === 1 &&
+                                <label style={{float: 'right'}}>NA</label>}
+                                {this.getStatusNum(this.props.status) === 2 &&
+                                <label style={{float: 'right'}}>尚未入块</label>}
+                                {this.getStatusNum(this.props.status) === 3 &&
+                                <label style={{float: 'right'}}>Pending</label>}
+                                {this.getStatusNum(this.props.status) === 4 &&
+                                <label style={{float: 'right'}}>Completed</label>}
                                 {/* 失败直接标注 */}
-                                {this.getStatusNum(this.props.status) === 5 && <label style={{float:'right'}}>Failed</label>}
+                                {this.getStatusNum(this.props.status) === 5 &&
+                                <label style={{float: 'right'}}>Failed</label>}
                             </label>
                         </div>
                         <div className="transactionDetailSingleItem">
                             <label>交易哈希：</label>
-                            <label style={{float:'right'}}>
-                                {this.getStatusNum(this.props.status) === 1 && <label style={{float:'right'}}>NA</label>}
-                                {(this.getStatusNum(this.props.status) > 1  && this.getStatusNum(this.props.status) < 5) && <label style={{float:'right'}}>{this.props.eth_tx_hash}</label>}
+                            <label style={{float: 'right'}}>
+                                {this.getStatusNum(this.props.status) === 1 &&
+                                <label style={{float: 'right'}}>NA</label>}
+                                {(this.getStatusNum(this.props.status) > 1 && this.getStatusNum(this.props.status) < 5) &&
+                                <label style={{float: 'right'}}>{this.props.eth_tx_hash}</label>}
                                 {/* 失败状态把交易哈希 mark Failed */}
-                                {this.getStatusNum(this.props.status) === 5 && <label style={{float:'right'}}>{this.props.eth_tx_hash} （Failed）</label>}
+                                {this.getStatusNum(this.props.status) === 5 &&
+                                <label style={{float: 'right'}}>{this.props.eth_tx_hash} （Failed）</label>}
                             </label>
                         </div>
                     </div>
@@ -167,4 +188,5 @@ class TransactionA2E extends React.Component {
         );
     };
 }
+
 export default TransactionA2E;
