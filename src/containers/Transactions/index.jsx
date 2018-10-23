@@ -1,7 +1,8 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import {Row, Col} from 'antd';
 import TransactionA2E from '../TransactionA2E/index';
 import TransactionE2A from '../TransactionE2A/index';
+
 class Transactions extends React.Component {
     constructor() {
         super();
@@ -11,9 +12,10 @@ class Transactions extends React.Component {
             transactions: [],
         }
     }
+
     //get the type of txs" ebc_to_eths or eth_to_ebcs
     getTxsType(undecidedTxs) {
-        if (undecidedTxs !== undefined && undecidedTxs['result'] !== undefined && undecidedTxs['result']['ebc_to_eths']!== undefined) {
+        if (undecidedTxs !== undefined && undecidedTxs['result'] !== undefined && undecidedTxs['result']['ebc_to_eths'] !== undefined) {
             return 'ebc_to_eths';
         } else if (undecidedTxs !== undefined && undecidedTxs['result'] !== undefined && undecidedTxs['result']['eth_to_ebcs'] !== undefined) {
             return 'eth_to_ebcs';
@@ -21,13 +23,15 @@ class Transactions extends React.Component {
             return 'na';
         }
     }
+
     //check if transactions are available
     isTxsEmpty(unsuredTxs) {
         return this.getTxsType(unsuredTxs) === 'na'
     }
+
     render() {
         console.log("Transactions rendering... Getting transactions from Db");
-        let { transactions } = this.state;
+        let {transactions} = this.state;
         let tx1 = transactions[0];
         let tx2 = transactions[1];
 
@@ -47,12 +51,12 @@ class Transactions extends React.Component {
             }
         }
         txs.sort((a, b) => {
-            return b['startedTime'] - a['startedTime'] ;
+            return b['startedTime'] - a['startedTime'];
         })
         console.log(txs);
 
         const txsToShow = txs.map((tx, i) => {
-            if(tx['txType'] === 'ebc2eth') {
+            if (tx['txType'] === 'ebc2eth') {
                 return <Row type="flex" justify="center">
                     <Col span={24}>
                         <TransactionA2E key={i} currentNum={this.state.currentEthBlockNum} {...tx} />
@@ -72,29 +76,34 @@ class Transactions extends React.Component {
                 </Row>
             }
         })
-        return(
+        return (
             <div>
                 {txsToShow}
             </div>
         );
     };
+
     getTransactions() {
         Promise.all([this.getEbc2EthData(), this.getEth2EbcData()])
             .then(res => this.setState({transactions: res}));
         setTimeout(_ => this.getTransactions(), 5000);
     }
+
     componentDidMount() {
         this.getTransactions();
     }
+
     getEbc2EthData() {
         return fetch(`http://47.97.171.140:17400/api/v1/ebc_to_eths/${this.props.neuronWebAddress.toLowerCase()}`, {
             method: "GET"
         }).then(res => res.json());
     }
+
     getEth2EbcData() {
         return fetch(`http://47.97.171.140:17400/api/v1/eth_to_ebcs/${this.props.neuronWebAddress.toLowerCase()}`, {
             method: "GET"
         }).then(res => res.json());
     }
 }
+
 export default Transactions;
