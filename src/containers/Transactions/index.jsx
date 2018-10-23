@@ -94,15 +94,23 @@ class Transactions extends React.Component {
     }
 
     getEbc2EthData() {
-        return fetch(`http://47.97.171.140:17400/api/v1/ebc_to_eths/${this.props.neuronWebAddress.toLowerCase()}`, {
+        return fetch(`https://ether-bridge-server.staging.cryptape.com/api/v1/eth_to_ebcs/${this.props.neuronWebAddress.toLowerCase()}`, {
             method: "GET"
         }).then(res => res.json());
+
+        // return fetch(`http://47.97.171.140:17400/api/v1/ebc_to_eths/${this.props.neuronWebAddress.toLowerCase()}`, {
+        //     method: "GET"
+        // }).then(res => res.json());
     }
 
     getEth2EbcData() {
-        return fetch(`http://47.97.171.140:17400/api/v1/eth_to_ebcs/${this.props.neuronWebAddress.toLowerCase()}`, {
+        return fetch(`https://ether-bridge-server.staging.cryptape.com/api/v1/ebc_to_eths/${this.props.neuronWebAddress.toLowerCase()}`, {
             method: "GET"
         }).then(res => res.json());
+
+        // return fetch(`http://47.97.171.140:17400/api/v1/eth_to_ebcs/${this.props.neuronWebAddress.toLowerCase()}`, {
+        //     method: "GET"
+        // }).then(res => res.json());
     }
 }
 
