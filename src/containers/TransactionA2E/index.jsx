@@ -29,6 +29,10 @@ class TransactionA2E extends React.Component {
         // this.getStatusNum = this.getStatusNum.bind(this);
     }
 
+    isEthTxExists() {
+        return this.eth_tx_hash === undefined ? false : true
+    }
+
     getBlockNumber() {
         nervos.appchain.getBlockNumber().then(res => this.setState({
             currentEthBlockNum: res
@@ -104,7 +108,14 @@ class TransactionA2E extends React.Component {
                             {(this.getStatusNum(this.props.status) > 1 && this.getStatusNum(this.props.status) < 5) &&
                             <img src={"/Rectangle6.png"} alt="enabled"/>}
 
-                            {/* 该状态页暂不考虑失败状态，因为有多种原因 */}
+                            {/* 有eth tx hash，第三步失败 */}
+                            {(this.getStatusNum(this.props.status) === 5 && this.isEthTxExists()) && <div>交易成功</div>}
+                            {(this.getStatusNum(this.props.status) === 5 && this.isEthTxExists()) && <img src={"/Rectangle6.png"} alt="enabled"/>}
+                            
+                            {/* 没有eth tx hash，第二部失败 */}
+                            {(this.getStatusNum(this.props.status) === 5 && !this.isEthTxExists()) && <div>交易失败</div>}
+                            {(this.getStatusNum(this.props.status) === 5 && !this.isEthTxExists()) && <img src={"/Rectangle6_disable.png"} alt="disabled"/>}
+
                         </div>
 
                         <div className="transctionMetaSingleStatus">
@@ -124,9 +135,8 @@ class TransactionA2E extends React.Component {
                             {this.getStatusNum(this.props.status) === 4 && <img src={"/Rectangle6.png"} alt="enabled"/>}
 
                             {/* 失败页面显示页面，不点亮 */}
-                            {this.getStatusNum(this.props.status) === 5 && <div>兑换完成</div>}
-                            {this.getStatusNum(this.props.status) === 5 &&
-                            <img src={"/Rectangle6.png"} alt="disabled"/>}
+                            {this.getStatusNum(this.props.status) === 5 && <div>兑换失败</div>}
+                            {this.getStatusNum(this.props.status) === 5 && <img src={"/Rectangle6_disable.png"} alt="disabled"/>}
 
                         </div>
                     </div>

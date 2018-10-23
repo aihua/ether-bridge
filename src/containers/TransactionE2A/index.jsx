@@ -38,6 +38,10 @@ class TransactionE2A extends React.Component {
         return this.STATUS[status];
     }
 
+    isAppchianTxHashExist() {
+        return this.props.ac_tx_hash === undefined ? false : true;
+    }
+
     getBlockNumber() {
         nervos.appchain.getBlockNumber().then(res => this.setState({
             currentEthBlockNum: res
@@ -92,9 +96,14 @@ class TransactionE2A extends React.Component {
                             {(this.getStatusNum(this.props.status) === 2 || this.getStatusNum(this.props.status) === 3) &&
                             <div>转账确认</div>}
                             {(this.getStatusNum(this.props.status) === 2 || this.getStatusNum(this.props.status) === 3) &&
-                            <img src={"/Rectangle6.png"} alt="disabled"/>}
+                            <img src={"/Rectangle6.png"} alt="enabled"/>}
 
-                            {/* 该状态页先不考虑失败状态，因为没有指定失败原因 */}
+                            {/* 第二步失败，因为没有appchain hash */}
+                            {(this.getStatusNum(this.props.status) === 4 && !this.isAppchianTxHashExist()) && <div>转账失败</div>}
+                            {(this.getStatusNum(this.props.status) === 4 && !this.isAppchianTxHashExist()) && <img src={"/Rectangle6.png"} alt="enabled"/>}
+                            {/* 第三步失败，因为有appchain hash，这个情况基本不会出现 */}
+                            {(this.getStatusNum(this.props.status) === 4 && this.isAppchianTxHashExist()) && <div>转账失败</div>}
+                            {(this.getStatusNum(this.props.status) === 4 && this.isAppchianTxHashExist()) && <img src={"/Rectangle6.png"} alt="enabled"/>}
                         </div>
 
                         <div className="transctionMetaSingleStatus">
