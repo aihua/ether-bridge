@@ -34,10 +34,13 @@ class TransactionA2E extends React.Component {
     }
 
     getBlockNumber() {
-        nervos.appchain.getBlockNumber().then(res => this.setState({
+        // nervos.appchain.getBlockNumber().then(res => this.setState({
+        //     currentEthBlockNum: res
+        // }));
+
+        window.web3.eth.getBlockNumber((err, res) => this.setState({
             currentEthBlockNum: res
         }));
-        // console.log('getblocknum', this.state.currentEthBlockNum)
         setTimeout(_ => this.getBlockNumber(), 5000);
     }
 
@@ -158,9 +161,7 @@ class TransactionA2E extends React.Component {
                             <label>兑换确认：</label>
                             {this.getStatusNum(this.props.status) === 1 && <label style={{float: 'right'}}>NA</label>}
                             {this.getStatusNum(this.props.status) === 2 && <label style={{float: 'right'}}>0/30</label>}
-                            {this.getStatusNum(this.props.status) === 3 && <label
-                                style={{float: 'right'}}>{Number(this.state.currentEthBlockNum - this.props.eth_block_num)}/30</label>}
-                            {this.getStatusNum(this.props.status) === 4 &&
+                            {(this.getStatusNum(this.props.status) === 3 || this.getStatusNum(this.props.status) === 4) && 
                             <label style={{float: 'right'}}>{Number(this.state.currentEthBlockNum - this.props.eth_block_num)}/30</label>}
                             {/* 暂不考虑失败状态，虽然有可能这个阶段是成功的，但是标注为Failed */}
                             {this.getStatusNum(this.props.status) === 5 &&
