@@ -80,17 +80,17 @@ class App extends React.Component {
                     </Row>
                     <Row type="flex" justify="center" className='account-token'>
                         <Col className='token-icon' span={3}>
-                            <img src="/ether-icon.png" alt=""/>
+                            <img src="./ether-icon.png" alt=""/>
                         </Col>
                         <Col className='Rectangle-2' span={8}>
                                 <span className={'ether'}>ether</span>
                                 <span className={'token-value'}>{ethBalance.toFixed(2)}</span>
                         </Col>
                         <Col className='token-icon' span={2}>
-                            <img className='exchange-icon' src="/exchange-icon.png" alt=""/>
+                            <img className='exchange-icon' src="./exchange-icon.png" alt=""/>
                         </Col>
                         <Col className='token-icon' span={3} >
-                            <img src="/ebc-icon.png" alt=""/>
+                            <img src="./ebc-icon.png" alt=""/>
                         </Col>
                         <Col className='Rectangle-2' span={8}>
                             <span className={'ether'}>ebc</span>

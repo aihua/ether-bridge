@@ -82,6 +82,9 @@ class TransactionA2E extends React.Component {
 
     render() {
 
+        const imgPath = './Rectangle6.png';
+        const imgPathDisabled = './Rectangle6_disable.png';
+
         return (
             <div>
                 <div className="transactionMeta" onClick={this.toggleDetails}>
@@ -95,7 +98,7 @@ class TransactionA2E extends React.Component {
                         <div className="transctionMetaSingleStatus">
                             {/* 这个状态永远是亮的，因为只要发现了event log即为started状态 */}
                             <div>转账确认</div>
-                            <img src={"/Rectangle6.png"} alt="enabled"/>
+                            <img src={imgPath} alt="enabled"/>
                             {/* 该状态页不存在失败状态 */}
                         </div>
 
@@ -103,21 +106,21 @@ class TransactionA2E extends React.Component {
                             {/* 拿到eth hash之前为 -- */}
                             {this.getStatusNum(this.props.status) === 1 && <div>&nbsp;&nbsp;&nbsp;&nbsp;--</div>}
                             {this.getStatusNum(this.props.status) === 1 &&
-                            <img src={"/Rectangle6_disable.png"} alt="disabled"/>}
+                            <img src={imgPathDisabled} alt="disabled"/>}
 
                             {/* 拿到eth hash之后即点亮，并切换为兑换发起 */}
                             {(this.getStatusNum(this.props.status) > 1 && this.getStatusNum(this.props.status) < 5) &&
                             <div>兑换发起</div>}
                             {(this.getStatusNum(this.props.status) > 1 && this.getStatusNum(this.props.status) < 5) &&
-                            <img src={"/Rectangle6.png"} alt="enabled"/>}
+                            <img src={imgPath} alt="enabled"/>}
 
                             {/* 有eth tx hash，第三步失败 */}
                             {(this.getStatusNum(this.props.status) === 5 && this.isEthTxExists()) && <div>交易成功</div>}
-                            {(this.getStatusNum(this.props.status) === 5 && this.isEthTxExists()) && <img src={"/Rectangle6.png"} alt="enabled"/>}
+                            {(this.getStatusNum(this.props.status) === 5 && this.isEthTxExists()) && <img src={imgPath} alt="enabled"/>}
                             
                             {/* 没有eth tx hash，第二部失败 */}
                             {(this.getStatusNum(this.props.status) === 5 && !this.isEthTxExists()) && <div>交易失败</div>}
-                            {(this.getStatusNum(this.props.status) === 5 && !this.isEthTxExists()) && <img src={"/Rectangle6_disable.png"} alt="disabled"/>}
+                            {(this.getStatusNum(this.props.status) === 5 && !this.isEthTxExists()) && <img src={imgPathDisabled} alt="disabled"/>}
 
                         </div>
 
@@ -125,21 +128,21 @@ class TransactionA2E extends React.Component {
                             {/* 得到eth hash 以前为 -- */}
                             {this.getStatusNum(this.props.status) === 1 && <div>&nbsp;&nbsp;&nbsp;&nbsp;-- </div>}
                             {this.getStatusNum(this.props.status) === 1 &&
-                            <img src={"/Rectangle6_disable.png"} alt="disabled"/>}
+                            <img src={imgPathDisabled} alt="disabled"/>}
 
                             {/* 得到eth hash 以后切换为兑换确认中，但不点亮 */}
                             {(this.getStatusNum(this.props.status) === 2 || this.getStatusNum(this.props.status) === 3) &&
                             <div>兑换确认中</div>}
                             {(this.getStatusNum(this.props.status) === 2 || this.getStatusNum(this.props.status) === 3) &&
-                            <img src={"/Rectangle6_disable.png"} alt="disabled"/>}
+                            <img src={imgPathDisabled} alt="disabled"/>}
 
                             {/* 得到30个确认，切换为兑换完成，并且点亮 */}
                             {this.getStatusNum(this.props.status) === 4 && <div>兑换完成</div>}
-                            {this.getStatusNum(this.props.status) === 4 && <img src={"/Rectangle6.png"} alt="enabled"/>}
+                            {this.getStatusNum(this.props.status) === 4 && <img src={imgPath} alt="enabled"/>}
 
                             {/* 失败页面显示页面，不点亮 */}
                             {this.getStatusNum(this.props.status) === 5 && <div>兑换失败</div>}
-                            {this.getStatusNum(this.props.status) === 5 && <img src={"/Rectangle6_disable.png"} alt="disabled"/>}
+                            {this.getStatusNum(this.props.status) === 5 && <img src={imgPath} alt="disabled"/>}
 
                         </div>
                     </div>

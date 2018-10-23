@@ -71,6 +71,9 @@ class TransactionE2A extends React.Component {
 
     render() {
 
+        const imgPath = './Rectangle6.png';
+        const imgPathDisabled = './Rectangle6_disable.png';
+
         return (
             <div className='e2a'>
                 <div className="transactionMeta" onClick={this.toggleDetails}>
@@ -84,7 +87,7 @@ class TransactionE2A extends React.Component {
                         <div className="transctionMetaSingleStatus">
                             {/* 初始状态为已经得到eth的block，eth交易已经入块 */}
                             <div>转账发起</div>
-                            <img src={"/Rectangle6.png"} alt="enabled"/>
+                            <img src={imgPath} alt="enabled"/>
                             {/* 该状态页不会出现失败信息 */}
                         </div>
 
@@ -92,38 +95,38 @@ class TransactionE2A extends React.Component {
                             {/* 初始状态已经得到eth的block，即开始等待30个确认 */}
                             {this.getStatusNum(this.props.status) === 1 && <div>转账确认中</div>}
                             {this.getStatusNum(this.props.status) === 1 &&
-                            <img src={"/Rectangle6_disable.png"} alt="disabled"/>}
+                            <img src={imgPathDisabled} alt="disabled"/>}
 
                             {/* 如果发出了appchain交易，后端已经确认转账，即点亮 */}
                             {(this.getStatusNum(this.props.status) === 2 || this.getStatusNum(this.props.status) === 3) &&
                             <div>转账确认</div>}
                             {(this.getStatusNum(this.props.status) === 2 || this.getStatusNum(this.props.status) === 3) &&
-                            <img src={"/Rectangle6.png"} alt="enabled"/>}
+                            <img src={imgPath} alt="enabled"/>}
 
                             {/* 第二步失败，因为没有appchain hash */}
                             {(this.getStatusNum(this.props.status) === 4 && !this.isAppchianTxHashExist()) && <div>转账失败</div>}
-                            {(this.getStatusNum(this.props.status) === 4 && !this.isAppchianTxHashExist()) && <img src={"/Rectangle6.png"} alt="enabled"/>}
+                            {(this.getStatusNum(this.props.status) === 4 && !this.isAppchianTxHashExist()) && <img src={imgPath} alt="enabled"/>}
                             {/* 第三步失败，因为有appchain hash，这个情况基本不会出现 */}
                             {(this.getStatusNum(this.props.status) === 4 && this.isAppchianTxHashExist()) && <div>转账失败</div>}
-                            {(this.getStatusNum(this.props.status) === 4 && this.isAppchianTxHashExist()) && <img src={"/Rectangle6.png"} alt="enabled"/>}
+                            {(this.getStatusNum(this.props.status) === 4 && this.isAppchianTxHashExist()) && <img src={imgPath} alt="enabled"/>}
                         </div>
 
                         <div className="transctionMetaSingleStatus">
                             {/* 如果得到hash则显示兑换确认中，但是不点亮 */}
                             {this.getStatusNum(this.props.status) === 1 && <div>&nbsp;&nbsp;&nbsp;-- </div>}
                             {this.getStatusNum(this.props.status) === 1 &&
-                            <img src={"/Rectangle6_disable.png"} alt="disabled"/>}
+                            <img src={imgPathDisabled} alt="disabled"/>}
                             {/* 如果得到appchain hash则显示兑换确认中，但是不点亮 */}
                             {this.getStatusNum(this.props.status) === 2 && <div>兑换确认中</div>}
                             {this.getStatusNum(this.props.status) === 2 &&
-                            <img src={"/Rectangle6_disable.png"} alt="disabled"/>}
+                            <img src={imgPathDisabled} alt="disabled"/>}
                             {/* 如果得到appchain tx receipt，且没有错误，则显示兑换完成，点亮，不需要等待30个确认 */}
                             {this.getStatusNum(this.props.status) === 3 && <div>兑换完成</div>}
-                            {this.getStatusNum(this.props.status) === 3 && <img src={"/Rectangle6.png"} alt="enabled"/>}
+                            {this.getStatusNum(this.props.status) === 3 && <img src={imgPath} alt="enabled"/>}
                             {/* 如果得到appchain tx receipt，有错误或者别的原因，则显示兑换失败，不点亮 */}
                             {this.getStatusNum(this.props.status) === 4 && <div>兑换失败</div>}
                             {this.getStatusNum(this.props.status) === 4 &&
-                            <img src={"/Rectangle6_disable.png"} alt="disabled"/>}
+                            <img src={imgPathDisabled} alt="disabled"/>}
                         </div>
                     </div>
                 </div>
