@@ -68,7 +68,6 @@ class SliderPanel extends React.Component {
         log('isVisible', this.state.isVisible)
     }
 
-
     render() {
 
         let {
@@ -115,7 +114,7 @@ class SliderPanel extends React.Component {
                         <InputNumber
                             min={-ebcBalance}
                             max={ethBalance}
-                            value={inputValue - ebcBalance}
+                            value={(inputValue - ebcBalance).toFixed(2)}
                             step={0.01}
                             size={'large'}
                             onChange={(value) => {this.handleSliderChange(value + ebcBalance)}}

@@ -72,8 +72,8 @@ class ConfirmModel extends React.Component {
                         centered={true}
                     >
                         <div className={'confirm-info'}>
-                            <p>确认把 <span>{Math.abs(transferVal)}</span> {unit1}</p>
-                            <p>转换为 <span>{Math.abs(transferVal)}</span> {unit2} 吗？</p>
+                            <p>确认把 <span>{Math.abs(transferVal).toFixed(2)}</span> {unit1}</p>
+                            <p>转换为 <span>{Math.abs(transferVal).toFixed(2)}</span> {unit2} 吗？</p>
                         </div>
                     </Modal>
                 </Col>
