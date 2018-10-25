@@ -2,6 +2,7 @@ import React from 'react';
 import {Row, Col} from 'antd';
 import TransactionA2E from '../TransactionA2E/index';
 import TransactionE2A from '../TransactionE2A/index';
+import nervosConfig from '../../nervos';
 
 class Transactions extends React.Component {
     constructor() {
@@ -94,7 +95,7 @@ class Transactions extends React.Component {
     }
 
     getEbc2EthData() {
-        return fetch(`https://ether-bridge-server.staging.cryptape.com/api/v1/eth_to_ebcs/${this.props.neuronWebAddress.toLowerCase()}`, {
+        return fetch(nervosConfig.apiAddr + '/ebc_to_eths/' + this.props.neuronWebAddress.toLowerCase(), {
             method: "GET"
         }).then(res => res.json());
 
@@ -104,7 +105,7 @@ class Transactions extends React.Component {
     }
 
     getEth2EbcData() {
-        return fetch(`https://ether-bridge-server.staging.cryptape.com/api/v1/ebc_to_eths/${this.props.neuronWebAddress.toLowerCase()}`, {
+        return fetch(nervosConfig.apiAddr + '/eth_to_ebcs/' + this.props.neuronWebAddress.toLowerCase(), {
             method: "GET"
         }).then(res => res.json());
 
