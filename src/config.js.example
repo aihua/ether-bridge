@@ -1,0 +1,6 @@
+const config = {
+    chain: '', // your chain address
+    contractAddress: '', // your contract address
+    adminAddress: '', // your admin address
+}
+module.exports = config
