@@ -123,9 +123,13 @@ class TransactionE2A extends React.Component {
                             {/* 如果得到appchain tx receipt，且没有错误，则显示兑换完成，点亮，不需要等待30个确认 */}
                             {this.getStatusNum(this.props.status) === 3 && <div>兑换完成</div>}
                             {this.getStatusNum(this.props.status) === 3 && <img src={imgPath} alt="enabled"/>}
+
+                            {/* 第二步失败，因为没有appchain hash，这个状态显示是*/}
+                            {(this.getStatusNum(this.props.status) === 4 && !this.isAppchianTxHashExist()) && <div>&nbsp;&nbsp;&nbsp;--</div>}
+                            {(this.getStatusNum(this.props.status) === 4 && !this.isAppchianTxHashExist()) && <img src={imgPathDisabled} alt="enabled"/>}
                             {/* 如果得到appchain tx receipt，有错误或者别的原因，则显示兑换失败，不点亮 */}
-                            {this.getStatusNum(this.props.status) === 4 && <div>兑换失败</div>}
-                            {this.getStatusNum(this.props.status) === 4 &&
+                            {(this.getStatusNum(this.props.status) === 4 && this.isAppchianTxHashExist()) && <div>兑换失败</div>}
+                            {(this.getStatusNum(this.props.status) === 4 && this.isAppchianTxHashExist()) &&
                             <img src={imgPathDisabled} alt="disabled"/>}
                         </div>
                     </div>
@@ -144,7 +148,10 @@ class TransactionE2A extends React.Component {
                         <div className="transactionDetailSingleItem">
                             <label>转账确认：</label>
                             {/* 初始状态（即已经获取到了eth hash和blockNum），是要显示 confirmation 数量*/}
-                            <label style={{float: 'right'}}> {Number(this.state.currentEthBlockNum - this.props.eth_block_num)} /30</label>
+                            <label style={{float: 'right'}}> 
+                                {Number(this.state.currentEthBlockNum - this.props.eth_block_num) > 30 
+                                    ? '已确认' : Number(this.state.currentEthBlockNum - this.props.eth_block_num)} /30
+                            </label>
                             {/* {this.getStatusNum(this.props.status) === 1 && 
                             <label style={{float: 'right'}}> {Number(this.state.currentEthBlockNum - this.props.eth_block_num)} /30</label>}
                             {(this.getStatusNum(this.props.status) > 1 && this.getStatusNum(this.props.status) < 5) &&
