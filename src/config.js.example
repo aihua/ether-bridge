@@ -2,5 +2,6 @@ const config = {
     chain: '', // your chain address
     contractAddress: '', // your contract address
     adminAddress: '', // your admin address
-}
+    api: '' //your back-end api url
+    }
 module.exports = config
