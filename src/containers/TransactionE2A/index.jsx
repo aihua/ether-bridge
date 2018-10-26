@@ -66,7 +66,7 @@ class TransactionE2A extends React.Component {
     }
 
     parseValue = (value) => {
-        return (value / 1e18).toFixed(2)
+        return (value / 1e18).toFixed(4)
     }
 
     render() {
@@ -142,7 +142,7 @@ class TransactionE2A extends React.Component {
                             <label style={{float: 'right'}}>{this.parseTimeStamp(this.props.startedTime)}</label>
                         </div>
                         <div className="transactionDetailSingleItem">
-                            <label>交易哈希：</label>
+                            <label>ether 交易哈希：</label>
                             <label style={{float: 'right'}}>{this.props.eth_tx_hash}</label>
                         </div>
                         <div className="transactionDetailSingleItem">
@@ -169,7 +169,7 @@ class TransactionE2A extends React.Component {
                             <label style={{float: 'right'}}>Failed</label>}
                         </div>
                         <div className="transactionDetailSingleItem">
-                            <label>交易哈希：</label>
+                            <label>ebc 交易哈希：</label>
                             {/* 初始状态（即已经获取到了eth hash和blockNum），还未发起，此时状态为NA */}
                             {this.getStatusNum(this.props.status) === 1 && <label style={{float: 'right'}}>NA</label>}
                             {/* 2, 3三种状态中，都已经得到了appChain的hash，显示哈希 */}

@@ -84,7 +84,7 @@ class App extends React.Component {
                         </Col>
                         <Col className='Rectangle-2' span={8}>
                                 <span className={'ether'}>ether</span>
-                                <span className={'token-value'}>{ethBalance.toFixed(2)}</span>
+                                <span className={'token-value'}>{ethBalance.toFixed(4)}</span>
                         </Col>
                         <Col className='token-icon' span={2}>
                             <img className='exchange-icon' src="./exchange-icon.png" alt=""/>
@@ -94,7 +94,7 @@ class App extends React.Component {
                         </Col>
                         <Col className='Rectangle-2' span={8}>
                             <span className={'ether'}>ebc</span>
-                            <span className={'token-value'}>{ebcBalance.toFixed(2)}</span>
+                            <span className={'token-value'}>{ebcBalance.toFixed(4)}</span>
                         </Col>
                     </Row>
                     <SliderPanel {...sliderInfo}/>

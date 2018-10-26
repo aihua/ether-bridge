@@ -77,7 +77,7 @@ class TransactionA2E extends React.Component {
     }
 
     parseValue = (value) => {
-        return (value / 1e18).toFixed(2)
+        return (value / 1e18).toFixed(4)
     }
 
     render() {
@@ -161,7 +161,7 @@ class TransactionA2E extends React.Component {
                             <label style={{float: 'right'}}>{this.parseTimeStamp(this.props.startedTime)}</label>
                         </div>
                         <div className="transactionDetailSingleItem">
-                            <label>交易哈希：</label>
+                            <label>ether 交易哈希：</label>
                             <label style={{float: 'right'}}>{this.props.wd_tx_hash}</label>
                         </div>
                         <div className="transactionDetailSingleItem">
@@ -193,7 +193,7 @@ class TransactionA2E extends React.Component {
                             </label>
                         </div>
                         <div className="transactionDetailSingleItem">
-                            <label>交易哈希：</label>
+                            <label>ebc 交易哈希：</label>
                             <label style={{float: 'right'}}>
                                 {this.getStatusNum(this.props.status) === 1 &&
                                 <label style={{float: 'right'}}>NA</label>}
