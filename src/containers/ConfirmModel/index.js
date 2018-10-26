@@ -3,12 +3,14 @@ import {Col, Modal, Row} from 'antd'
 import nervos from '../../nervos'
 import './confirmModel.css'
 
+const NP = require('number-precision')
 const log = console.log.bind(console, '###')
 
 class ConfirmModel extends React.Component {
 
     handleExchange = () => {
-        let transferVal = Number(this.props.inputValue - this.props.ebcBalance)
+        let ebcBalance = this.parseValue(this.props.ebcBalance)
+        let transferVal = NP.minus(this.props.inputValue, ebcBalance)
         if (transferVal < 0) {
             // ebc -> eth
             log('transferVal < 0 ebc -> eth')
@@ -34,7 +36,11 @@ class ConfirmModel extends React.Component {
             // eth -> ebc
             log('transferVal > 0 eth -> ebc')
             transferVal = window.web3.toWei(Math.abs(transferVal), 'ether')
-            window.web3.eth.sendTransaction({'from': this.props.metaMaskAddress, 'to': nervos.adminAddress, 'value': transferVal}, (err, res) => {
+            window.web3.eth.sendTransaction({
+                'from': this.props.metaMaskAddress,
+                'to': nervos.adminAddress,
+                'value': transferVal
+            }, (err, res) => {
                 console.log()
             })
         }
@@ -46,13 +52,14 @@ class ConfirmModel extends React.Component {
         this.props.toggleModel()
     }
 
-    render() {
-        // console.log('input value:', this.props.inputValue, 'ebc Balance', this.props.ebcBalance )
+    parseValue = (value) => {
+        return Math.floor(value * 10000) / 10000
+    }
 
-        let transferVal = this.props.inputValue - this.props.ebcBalance
-        console.log('input value:', this.props.inputValue)
-        console.log('ebc Balance', this.props.ebcBalance)
-        console.log('trans val', transferVal)
+    render() {
+        let ebcBalance = this.parseValue(this.props.ebcBalance)
+        let transferVal = NP.minus(this.props.inputValue, ebcBalance)
+
         let unit1 = ''
         let unit2 = ''
 
@@ -84,7 +91,6 @@ class ConfirmModel extends React.Component {
         )
     }
 }
-
 
 
 export default ConfirmModel

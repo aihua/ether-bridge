@@ -1,10 +1,7 @@
 import React from 'react';
 // import "./transactionA2E.css";
-import nervos from '../../nervos';
 import '../../styles/tx.css';
 import {Icon} from "antd";
-
-const log = console.log.bind(console)
 
 class TransactionA2E extends React.Component {
 
@@ -85,8 +82,10 @@ class TransactionA2E extends React.Component {
         const imgPath = './Rectangle6.png';
         const imgPathDisabled = './Rectangle6_disable.png';
 
-        const etherScanLink = <a target="_blank" href={'https://kovan.etherscan.io/tx/' + this.props.eth_tx_hash}>{this.props.eth_tx_hash}</a>
-        const microscopeLink = <a target="_blank" href={'http://microscope.cryptape.com/#/transaction/' + this.props.wd_tx_hash}>{this.props.wd_tx_hash}</a>
+        const etherScanLink = <a target="_blank" rel="noopener noreferrer"
+                                 href={'https://kovan.etherscan.io/tx/' + this.props.eth_tx_hash}>{this.props.eth_tx_hash}</a>
+        const microscopeLink = <a target="_blank" rel="noopener noreferrer"
+                                  href={'http://microscope.cryptape.com/#/transaction/' + this.props.wd_tx_hash}>{this.props.wd_tx_hash}</a>
 
         return (
             <div>
@@ -119,11 +118,13 @@ class TransactionA2E extends React.Component {
 
                             {/* 有eth tx hash，第三步失败 */}
                             {(this.getStatusNum(this.props.status) === 5 && this.isEthTxExists()) && <div>交易成功</div>}
-                            {(this.getStatusNum(this.props.status) === 5 && this.isEthTxExists()) && <img src={imgPath} alt="enabled"/>}
-                            
+                            {(this.getStatusNum(this.props.status) === 5 && this.isEthTxExists()) &&
+                            <img src={imgPath} alt="enabled"/>}
+
                             {/* 没有eth tx hash，第二部失败 */}
                             {(this.getStatusNum(this.props.status) === 5 && !this.isEthTxExists()) && <div>交易失败</div>}
-                            {(this.getStatusNum(this.props.status) === 5 && !this.isEthTxExists()) && <img src={imgPathDisabled} alt="disabled"/>}
+                            {(this.getStatusNum(this.props.status) === 5 && !this.isEthTxExists()) &&
+                            <img src={imgPathDisabled} alt="disabled"/>}
 
                         </div>
 
@@ -144,12 +145,15 @@ class TransactionA2E extends React.Component {
                             {this.getStatusNum(this.props.status) === 4 && <img src={imgPath} alt="enabled"/>}
 
                             {/* 没有eth tx hash，第二部失败 */}
-                            {(this.getStatusNum(this.props.status) === 5 && !this.isEthTxExists()) && <div>&nbsp;&nbsp;&nbsp;&nbsp;--</div>}
-                            {(this.getStatusNum(this.props.status) === 5 && !this.isEthTxExists()) && <img src={imgPathDisabled} alt="disabled"/>}
+                            {(this.getStatusNum(this.props.status) === 5 && !this.isEthTxExists()) &&
+                            <div>&nbsp;&nbsp;&nbsp;&nbsp;--</div>}
+                            {(this.getStatusNum(this.props.status) === 5 && !this.isEthTxExists()) &&
+                            <img src={imgPathDisabled} alt="disabled"/>}
 
                             {/* 失败页面显示页面，不点亮 */}
                             {(this.getStatusNum(this.props.status) === 5 && this.isEthTxExists()) && <div>兑换失败</div>}
-                            {(this.getStatusNum(this.props.status) === 5 && this.isEthTxExists()) && <img src={imgPath} alt="disabled"/>}
+                            {(this.getStatusNum(this.props.status) === 5 && this.isEthTxExists()) &&
+                            <img src={imgPath} alt="disabled"/>}
 
                         </div>
                     </div>
@@ -171,10 +175,10 @@ class TransactionA2E extends React.Component {
                             <label>兑换确认：</label>
                             {this.getStatusNum(this.props.status) === 1 && <label style={{float: 'right'}}>NA</label>}
                             {this.getStatusNum(this.props.status) === 2 && <label style={{float: 'right'}}>0/30</label>}
-                            {(this.getStatusNum(this.props.status) === 3 || this.getStatusNum(this.props.status) === 4) && 
+                            {(this.getStatusNum(this.props.status) === 3 || this.getStatusNum(this.props.status) === 4) &&
                             <label style={{float: 'right'}}>
-                            {Number(this.state.currentEthBlockNum - this.props.eth_block_num) > 30 
-                                ? '已确认' : Number(this.state.currentEthBlockNum - this.props.eth_block_num)}/30</label>}
+                                {Number(this.state.currentEthBlockNum - this.props.eth_block_num) > 30
+                                    ? '已确认' : Number(this.state.currentEthBlockNum - this.props.eth_block_num)}/30</label>}
                             {/* 暂不考虑失败状态，虽然有可能这个阶段是成功的，但是标注为Failed */}
                             {this.getStatusNum(this.props.status) === 5 &&
                             <label style={{float: 'right'}}>Failed</label>}

@@ -15,8 +15,6 @@ const {abi} = require('./contracts/compiled')
 const transaction = require('./contracts/transaction')
 const transferContract = new nervos.appchain.Contract(abi, nervos.contractAddress)
 
-const log = console.log.bind(console, '###')
-
 class App extends React.Component {
     state = {
         metaMaskAddress: window.web3.eth.defaultAccount || '',
