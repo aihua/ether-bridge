@@ -66,7 +66,7 @@ class TransactionE2A extends React.Component {
     }
 
     parseValue = (value) => {
-        return (value / 1e18).toFixed(4)
+        return Math.floor(value / 1e14) / 10000
     }
 
     render() {

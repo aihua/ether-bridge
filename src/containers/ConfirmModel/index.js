@@ -47,9 +47,12 @@ class ConfirmModel extends React.Component {
     }
 
     render() {
-        // console.log(this.props)
+        // console.log('input value:', this.props.inputValue, 'ebc Balance', this.props.ebcBalance )
 
         let transferVal = this.props.inputValue - this.props.ebcBalance
+        console.log('input value:', this.props.inputValue)
+        console.log('ebc Balance', this.props.ebcBalance)
+        console.log('trans val', transferVal)
         let unit1 = ''
         let unit2 = ''
 
@@ -72,8 +75,8 @@ class ConfirmModel extends React.Component {
                         centered={true}
                     >
                         <div className={'confirm-info'}>
-                            <p>确认把 <span>{Math.abs(transferVal).toFixed(4)}</span> {unit1}</p>
-                            <p>转换为 <span>{Math.abs(transferVal).toFixed(4)}</span> {unit2} 吗？</p>
+                            <p>确认把 <span>{Math.abs(transferVal.toFixed(4))}</span> {unit1}</p>
+                            <p>转换为 <span>{Math.abs(transferVal.toFixed(4))}</span> {unit2} 吗？</p>
                         </div>
                     </Modal>
                 </Col>
