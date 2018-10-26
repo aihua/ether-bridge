@@ -85,6 +85,9 @@ class TransactionA2E extends React.Component {
         const imgPath = './Rectangle6.png';
         const imgPathDisabled = './Rectangle6_disable.png';
 
+        const etherScanLink = <a target="_blank" href={'https://kovan.etherscan.io/tx/' + this.props.eth_tx_hash}>{this.props.eth_tx_hash}</a>
+        const microscopeLink = <a target="_blank" href={'http://microscope.cryptape.com/#/transaction/' + this.props.wd_tx_hash}>{this.props.wd_tx_hash}</a>
+
         return (
             <div>
                 <div className="transactionMeta" onClick={this.toggleDetails}>
@@ -161,8 +164,8 @@ class TransactionA2E extends React.Component {
                             <label style={{float: 'right'}}>{this.parseTimeStamp(this.props.startedTime)}</label>
                         </div>
                         <div className="transactionDetailSingleItem">
-                            <label>ether 交易哈希：</label>
-                            <label style={{float: 'right'}}>{this.props.wd_tx_hash}</label>
+                            <label>ebc 交易哈希：</label>
+                            <label style={{float: 'right'}}>{microscopeLink}</label>
                         </div>
                         <div className="transactionDetailSingleItem">
                             <label>兑换确认：</label>
@@ -193,15 +196,15 @@ class TransactionA2E extends React.Component {
                             </label>
                         </div>
                         <div className="transactionDetailSingleItem">
-                            <label>ebc 交易哈希：</label>
+                            <label>ether 交易哈希：</label>
                             <label style={{float: 'right'}}>
                                 {this.getStatusNum(this.props.status) === 1 &&
                                 <label style={{float: 'right'}}>NA</label>}
                                 {(this.getStatusNum(this.props.status) > 1 && this.getStatusNum(this.props.status) < 5) &&
-                                <label style={{float: 'right'}}>{this.props.eth_tx_hash}</label>}
+                                <label style={{float: 'right'}}>{etherScanLink}</label>}
                                 {/* 失败状态把交易哈希 mark Failed */}
                                 {this.getStatusNum(this.props.status) === 5 &&
-                                <label style={{float: 'right'}}>{this.props.eth_tx_hash} （Failed）</label>}
+                                <label style={{float: 'right'}}>{etherScanLink} （Failed）</label>}
                             </label>
                         </div>
                     </div>

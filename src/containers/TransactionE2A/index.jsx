@@ -74,6 +74,9 @@ class TransactionE2A extends React.Component {
         const imgPath = './Rectangle6.png';
         const imgPathDisabled = './Rectangle6_disable.png';
 
+        const etherScanLink = <a target="_blank" href={'https://kovan.etherscan.io/tx/' + this.props.eth_tx_hash}>{this.props.eth_tx_hash}</a>
+        const microscopeLink = <a target="_blank" href={'http://microscope.cryptape.com/#/transaction/' + this.props.ac_tx_hash}>{this.props.ac_tx_hash}</a>
+
         return (
             <div className='e2a'>
                 <div className="transactionMeta" onClick={this.toggleDetails}>
@@ -143,7 +146,8 @@ class TransactionE2A extends React.Component {
                         </div>
                         <div className="transactionDetailSingleItem">
                             <label>ether 交易哈希：</label>
-                            <label style={{float: 'right'}}>{this.props.eth_tx_hash}</label>
+                            {/*<label style={{float: 'right'}}>{this.props.eth_tx_hash}</label>*/}
+                            <label style={{float: 'right'}}>{etherScanLink}</label>
                         </div>
                         <div className="transactionDetailSingleItem">
                             <label>转账确认：</label>
@@ -174,10 +178,10 @@ class TransactionE2A extends React.Component {
                             {this.getStatusNum(this.props.status) === 1 && <label style={{float: 'right'}}>NA</label>}
                             {/* 2, 3三种状态中，都已经得到了appChain的hash，显示哈希 */}
                             {(this.getStatusNum(this.props.status) > 1 && this.getStatusNum(this.props.status) < 4) &&
-                            <label style={{float: 'right'}}>{this.props.ac_tx_hash}</label>}
+                            <label style={{float: 'right'}}>{microscopeLink}</label>}
                             {/* 4 状态表示失败，可能有hash也可能没有，显示或不显示都在后mark为失败 */}
                             {this.getStatusNum(this.props.status) === 4 &&
-                            <label style={{float: 'right'}}>{this.props.ac_tx_hash} (Failed)</label>}
+                            <label style={{float: 'right'}}>{microscopeLink} (Failed)</label>}
                         </div>
                     </div>
                 </div>
