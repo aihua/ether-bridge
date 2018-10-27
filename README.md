@@ -1,5 +1,75 @@
-# ether-bridge
 
+
+# ether-bridge
+This demo is a cross-chain asset transfer gateway. Help users transfer asset from ether to eth bridge coin(ebc).
+
+## Getting Started
+
+### Prerequisites
+- [Node.js](https://nodejs.org)
+- [Metamask](https://metamask.io/)
+- [Neuron Web download address](https://github.com/cryptape/nervos.js/releases)
+
+[Neuron Web](https://github.com/cryptape/nervos.js/tree/develop/packages/neuron-web) is an extension of chrome similar to MetaMask.
+
+To check if node is installed:
+
+```shell
+$ node -v
+v8.11.4  // version may be different
+```
+
+Login your account in Metamask and Neuron Web, and make sure account address in these two extensions are the __SAME ADDRESS__
+
+### Installing
+
+1.Download repo
+
+```shell
+git clone https://github.com/cryptape/ether-bridge.git
+```
+
+2.Install Dependencies
+
+```shell
+yarn install
+```
+
+3.Configuration
+
+Create `src/js/config.js`
+
+```shell
+cp src/config.js.example src/config.js
+```
+
+Set all parameters
+
+```javascript
+const config = {
+    chain: '', 
+    contractAddress: '',
+    adminAddress: '', 
+    api: '', 
+    }
+    
+module.exports = config
+
+```
+`Parameters`
+
+- `chain` - `String`: your chain address
+- `contractAddress` - `String`: your contract 
+- `adminaddress` - `String`: your admin account address which interact with contract to receive and send ether.
+-  `api` - `String`: your back-end api url
+
+4.Start your server
+
+```shell
+yarn start
+```
+
+## 2. 
 ## Deploy to server
 
 ### 1. Install Dependences
