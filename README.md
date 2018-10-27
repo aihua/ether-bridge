@@ -86,40 +86,36 @@ Homepage looks like:
 
 ![homepage.png](./public/homepage.png)
 
-## Deploy to server
+## Deployment
 
-### 1. Install Dependences
+### Instructions
 
-```shell
-yarn install
-```
-
-### 2. Use webpack generate production version
+1.Use webpack generate production version
 
 ```shell
 yarn build
 ```
 
-### 3. Pack and rename `build` folder
+2.Rename and pack `build` folder
 
 ```shell
-ether-bridge > mv build ether-bridge  // rename `build` folder name to `ether-bridge`
-ether-bridge > tar -zcvf ether-bridge.tar.gz ether-bridge  // pack `ether-bridge`
+ether-bridge > mv build ether-bridge  
+ether-bridge > tar -zcvf ether-bridge.tar.gz ether-bridge  
 ```
 
-### 4. Upload ether-bridge.tar.gz to server
+3.Upload ether-bridge.tar.gz to server
 
 ```shell
 scp ether-bridge.tar.gz user@remote:/tmp  //use your own server address
 ```
 
-### 5. Login your server
+4.Login your server
 
 ```shell
 ssh user@remote //use your own server address
 ```
 
-### 6. Unpack ether-bridge
+5.Unpack ether-bridge
 
 ```shell
 cd /tmp
@@ -128,6 +124,9 @@ cd /var/www
 tar -zxvf ether-bridge.tar.gz  // Unpack ether-bridge
 ```
 
-### 7. Use a static files server, e.g. [NGINX](https://www.nginx.com/) to serve the ether-bridge directory
+6.Use a static files server, e.g. [NGINX](https://www.nginx.com/) to serve the ether-bridge directory
 
 
+## TODO List
+
+- Input box is not works so well. You can use slider instead.
