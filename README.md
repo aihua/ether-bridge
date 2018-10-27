@@ -76,7 +76,7 @@ Compiled successfully!
 You can now view ether-bridge in the browser.
 
   Local:            http://localhost:3000/
-  On Your Network:  http://192.168.10.87:3000/
+  On Your Network:  http://xxx.xxx.xx.xx:3000/
 
 Note that the development build is not optimized.
 To create a production build, use yarn build.
