@@ -68,8 +68,24 @@ module.exports = config
 ```shell
 yarn start
 ```
+Server is running on `http://localhost:3000/` when info below display in your shell.
 
-## 2. 
+```shell
+Compiled successfully!
+
+You can now view ether-bridge in the browser.
+
+  Local:            http://localhost:3000/
+  On Your Network:  http://192.168.10.87:3000/
+
+Note that the development build is not optimized.
+To create a production build, use yarn build.
+
+```
+Homepage looks like:
+
+![homepage.png](./public/homepage.png)
+
 ## Deploy to server
 
 ### 1. Install Dependences
