@@ -5,7 +5,6 @@ import {
     Button,
     Slider,
     InputNumber,
-    Icon,
 } from 'antd'
 import './sliderPanel.css'
 import ConfirmModel from '../ConfirmModel'
@@ -102,7 +101,7 @@ class SliderPanel extends React.Component {
                             max={ethBalance + ebcBalance}
                             onChange={this.handleSliderChange}
                             value={typeof inputValue === 'number' ? inputValue : 0}
-                            step={0.01}
+                            step={0.0001}
                         />
                     </Col>
                 </Row>
@@ -114,17 +113,19 @@ class SliderPanel extends React.Component {
                         <InputNumber
                             min={-ebcBalance}
                             max={ethBalance}
-                            value={(inputValue - ebcBalance).toFixed(2)}
-                            step={0.01}
+                            value={(inputValue - ebcBalance).toFixed(4)}
+                            step={0.0001}
                             size={'large'}
-                            onChange={(value) => {this.handleSliderChange(value + ebcBalance)}}
+                            onChange={(value) => {
+                                this.handleSliderChange(value + ebcBalance)
+                            }}
                         />
                     </Col>
                     <Col span={3}>
                         <Button size='large' type={"primary"} onClick={this.toggleModel}>exchange</Button>
                     </Col>
                 </Row>
-                <ConfirmModel {...transInfo} toggleModel = {this.toggleModel.bind(this)}/>
+                <ConfirmModel {...transInfo} toggleModel={this.toggleModel.bind(this)}/>
             </div>
         )
     }
