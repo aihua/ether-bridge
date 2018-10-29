@@ -171,7 +171,7 @@ class TransactionE2A extends React.Component {
                             <label style={{float: 'right'}}> {Number(this.state.currentEthBlockNum - this.props.eth_block_num)}/30</label>} */}
                         </div>
                         <div className="transactionDetailSingleItem">
-                            <label>转账确认：</label>
+                            <label>兑换确认：</label>
                             {/* 初始状态（即已经获取到了eth hash和blockNum），还未发起，此时状态为NA */}
                             {this.getStatusNum(this.props.status) === 1 && <label style={{float: 'right'}}>NA</label>}
                             {/* 非初始状态，此时状态为 Completed，因为 appChain 上的交易，只要发起就可以确认，不存在pending状态 */}
