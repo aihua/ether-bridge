@@ -70,6 +70,10 @@ class SliderPanel extends React.Component {
         log('isVisible', this.state.isVisible)
     }
 
+    parseValue = (value) => {
+        return Math.floor(value * 10000) / 10000
+    }
+
     render() {
 
         let {
@@ -79,6 +83,10 @@ class SliderPanel extends React.Component {
             isVisible,
             isDisable,
         } = this.state
+
+        ethBalance = this.parseValue(ethBalance)
+        ebcBalance = this.parseValue(ebcBalance)
+        inputValue = this.parseValue(inputValue)
 
         let {
             metaMaskAddress,
@@ -94,6 +102,11 @@ class SliderPanel extends React.Component {
             transaction,
             transferContract,
         }
+
+        // log('eth', this.parseValue(ethBalance))
+        // log('ebc', this.parseValue(ebcBalance))
+        // log('ebc + eth', this.parseValue(ethBalance) + this.parseValue(ebcBalance))
+        // log('input value', inputValue)
 
         //TODO Input Form has BUG
         return (

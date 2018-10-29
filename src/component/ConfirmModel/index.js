@@ -11,6 +11,7 @@ class ConfirmModel extends React.Component {
     handleExchange = () => {
         let ebcBalance = this.parseValue(this.props.ebcBalance)
         let transferVal = NP.minus(this.props.inputValue, ebcBalance)
+        // log(this.props.inputValue, ebcBalance, transferVal)
         if (transferVal < 0) {
             // ebc -> eth
             log('transferVal < 0 ebc -> eth')
@@ -59,6 +60,11 @@ class ConfirmModel extends React.Component {
     render() {
         let ebcBalance = this.parseValue(this.props.ebcBalance)
         let transferVal = NP.minus(this.props.inputValue, ebcBalance)
+        // log('this.props.ebcBalance', this.props.ebcBalance)
+        // log('this.props.inputValue', this.props.inputValue)
+        // log('ebcBalance', ebcBalance)
+        // log('transferVal', transferVal)
+        // log(this.props.ebcBalance, this.props.inputValue, ebcBalance, transferVal)
 
         let unit1 = ''
         let unit2 = ''
