@@ -6,8 +6,8 @@ import {
     Col,
 } from 'antd'
 
-import SliderPanel from './containers/SliderPanel'
-import TransctionPanel from './containers/Transactions';
+import SliderPanel from './component/SliderPanel'
+import TransctionPanel from './component/Transactions';
 
 const {abi} = require('./contracts/compiled')
 
