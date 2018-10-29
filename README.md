@@ -37,7 +37,7 @@ yarn install
 
 3.Configuration
 
-Create `src/js/config.js`
+Create `src/config.js`
 
 ```shell
 cp src/config.js.example src/config.js
