@@ -164,7 +164,7 @@ class TransactionA2E extends React.Component {
                 <div className="transactionDetail">
                     <div className="transactionDetailItems">
                         <div className="transactionDetailSingleItem">
-                            <label>转账发起：</label>
+                            <label>转账确认：</label>
                             <label style={{float: 'right'}}>{this.parseTimeStamp(this.props.startedTime)}</label>
                         </div>
                         <div className="transactionDetailSingleItem">
@@ -172,7 +172,7 @@ class TransactionA2E extends React.Component {
                             <label style={{float: 'right'}}>{microscopeLink}</label>
                         </div>
                         <div className="transactionDetailSingleItem">
-                            <label>兑换确认：</label>
+                            <label>兑换发起：</label>
                             {this.getStatusNum(this.props.status) === 1 && <label style={{float: 'right'}}>NA</label>}
                             {this.getStatusNum(this.props.status) === 2 && <label style={{float: 'right'}}>0/30</label>}
                             {(this.getStatusNum(this.props.status) === 3 || this.getStatusNum(this.props.status) === 4) &&
@@ -184,7 +184,7 @@ class TransactionA2E extends React.Component {
                             <label style={{float: 'right'}}>Failed</label>}
                         </div>
                         <div className="transactionDetailSingleItem">
-                            <label>转账确认：</label>
+                            <label>兑换确认：</label>
                             <label style={{float: 'right'}}>
                                 {this.getStatusNum(this.props.status) === 1 &&
                                 <label style={{float: 'right'}}>NA</label>}
