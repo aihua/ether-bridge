@@ -6,16 +6,14 @@ import {
     Col,
 } from 'antd'
 
-import SliderPanel from './containers/SliderPanel'
-import TransctionPanel from './containers/Transactions';
+import SliderPanel from './component/SliderPanel'
+import TransctionPanel from './component/Transactions';
 
 const {abi} = require('./contracts/compiled')
 
 
 const transaction = require('./contracts/transaction')
 const transferContract = new nervos.appchain.Contract(abi, nervos.contractAddress)
-
-const log = console.log.bind(console, '###')
 
 class App extends React.Component {
     state = {
@@ -32,8 +30,8 @@ class App extends React.Component {
         // log('transferContract', transferContract)
         transferContract.methods.balanceOf(this.state.neuronWebAddress).call().then((res) => {
             this.setState({
-                ebcBalance: Number(res) / 1e18,
-                inputValue: Number(res) / 1e18,
+                ebcBalance: Number(res),
+                inputValue: Number(res),
             })
         }).catch((err) => {
             console.log(err.message)
@@ -41,13 +39,17 @@ class App extends React.Component {
 
         window.web3.eth.getBalance(this.state.metaMaskAddress, (err, res) => {
             this.setState({
-                ethBalance: res.toNumber() / 1e18,
+                ethBalance: res.toNumber(),
             })
         })
 
         this.setState({
             isAddressSame: this.state.metaMaskAddress.toLowerCase() === this.state.neuronWebAddress.toLowerCase(),
         })
+    }
+
+    parseValue = (value) => {
+        return Math.floor(value / 1e14) / 10000
     }
 
     render() {
@@ -84,7 +86,7 @@ class App extends React.Component {
                         </Col>
                         <Col className='Rectangle-2' span={8}>
                                 <span className={'ether'}>ether</span>
-                                <span className={'token-value'}>{ethBalance.toFixed(2)}</span>
+                                <span className={'token-value'}>{this.parseValue(ethBalance)}</span>
                         </Col>
                         <Col className='token-icon' span={2}>
                             <img className='exchange-icon' src="./exchange-icon.png" alt=""/>
@@ -94,7 +96,7 @@ class App extends React.Component {
                         </Col>
                         <Col className='Rectangle-2' span={8}>
                             <span className={'ether'}>ebc</span>
-                            <span className={'token-value'}>{ebcBalance.toFixed(2)}</span>
+                            <span className={'token-value'}>{this.parseValue(ebcBalance)}</span>
                         </Col>
                     </Row>
                     <SliderPanel {...sliderInfo}/>

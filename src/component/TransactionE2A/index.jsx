@@ -2,7 +2,7 @@ import React from 'react';
 import './transactionE2A.css';
 import '../../styles/tx.css';
 import {Icon} from 'antd'
-import nervos from "../../nervos";
+
 
 class TransactionE2A extends React.Component {
 
@@ -66,13 +66,18 @@ class TransactionE2A extends React.Component {
     }
 
     parseValue = (value) => {
-        return (value / 1e18).toFixed(2)
+        return Math.floor(value / 1e14) / 10000
     }
 
     render() {
 
         const imgPath = './Rectangle6.png';
         const imgPathDisabled = './Rectangle6_disable.png';
+
+        const etherScanLink = <a target="_blank" rel="noopener noreferrer"
+                                 href={'https://kovan.etherscan.io/tx/' + this.props.eth_tx_hash}>{this.props.eth_tx_hash}</a>
+        const microscopeLink = <a target="_blank" rel="noopener noreferrer"
+                                  href={'http://microscope.cryptape.com/#/transaction/' + this.props.ac_tx_hash}>{this.props.ac_tx_hash}</a>
 
         return (
             <div className='e2a'>
@@ -104,11 +109,15 @@ class TransactionE2A extends React.Component {
                             <img src={imgPath} alt="enabled"/>}
 
                             {/* 第二步失败，因为没有appchain hash */}
-                            {(this.getStatusNum(this.props.status) === 4 && !this.isAppchianTxHashExist()) && <div>转账失败</div>}
-                            {(this.getStatusNum(this.props.status) === 4 && !this.isAppchianTxHashExist()) && <img src={imgPath} alt="enabled"/>}
+                            {(this.getStatusNum(this.props.status) === 4 && !this.isAppchianTxHashExist()) &&
+                            <div>转账失败</div>}
+                            {(this.getStatusNum(this.props.status) === 4 && !this.isAppchianTxHashExist()) &&
+                            <img src={imgPath} alt="enabled"/>}
                             {/* 第三步失败，因为有appchain hash，这个情况基本不会出现 */}
-                            {(this.getStatusNum(this.props.status) === 4 && this.isAppchianTxHashExist()) && <div>转账失败</div>}
-                            {(this.getStatusNum(this.props.status) === 4 && this.isAppchianTxHashExist()) && <img src={imgPath} alt="enabled"/>}
+                            {(this.getStatusNum(this.props.status) === 4 && this.isAppchianTxHashExist()) &&
+                            <div>转账失败</div>}
+                            {(this.getStatusNum(this.props.status) === 4 && this.isAppchianTxHashExist()) &&
+                            <img src={imgPath} alt="enabled"/>}
                         </div>
 
                         <div className="transctionMetaSingleStatus">
@@ -125,10 +134,13 @@ class TransactionE2A extends React.Component {
                             {this.getStatusNum(this.props.status) === 3 && <img src={imgPath} alt="enabled"/>}
 
                             {/* 第二步失败，因为没有appchain hash，这个状态显示是*/}
-                            {(this.getStatusNum(this.props.status) === 4 && !this.isAppchianTxHashExist()) && <div>&nbsp;&nbsp;&nbsp;--</div>}
-                            {(this.getStatusNum(this.props.status) === 4 && !this.isAppchianTxHashExist()) && <img src={imgPathDisabled} alt="enabled"/>}
+                            {(this.getStatusNum(this.props.status) === 4 && !this.isAppchianTxHashExist()) &&
+                            <div>&nbsp;&nbsp;&nbsp;--</div>}
+                            {(this.getStatusNum(this.props.status) === 4 && !this.isAppchianTxHashExist()) &&
+                            <img src={imgPathDisabled} alt="enabled"/>}
                             {/* 如果得到appchain tx receipt，有错误或者别的原因，则显示兑换失败，不点亮 */}
-                            {(this.getStatusNum(this.props.status) === 4 && this.isAppchianTxHashExist()) && <div>兑换失败</div>}
+                            {(this.getStatusNum(this.props.status) === 4 && this.isAppchianTxHashExist()) &&
+                            <div>兑换失败</div>}
                             {(this.getStatusNum(this.props.status) === 4 && this.isAppchianTxHashExist()) &&
                             <img src={imgPathDisabled} alt="disabled"/>}
                         </div>
@@ -142,14 +154,15 @@ class TransactionE2A extends React.Component {
                             <label style={{float: 'right'}}>{this.parseTimeStamp(this.props.startedTime)}</label>
                         </div>
                         <div className="transactionDetailSingleItem">
-                            <label>交易哈希：</label>
-                            <label style={{float: 'right'}}>{this.props.eth_tx_hash}</label>
+                            <label>ether 交易哈希：</label>
+                            {/*<label style={{float: 'right'}}>{this.props.eth_tx_hash}</label>*/}
+                            <label style={{float: 'right'}}>{etherScanLink}</label>
                         </div>
                         <div className="transactionDetailSingleItem">
                             <label>转账确认：</label>
                             {/* 初始状态（即已经获取到了eth hash和blockNum），是要显示 confirmation 数量*/}
-                            <label style={{float: 'right'}}> 
-                                {Number(this.state.currentEthBlockNum - this.props.eth_block_num) > 30 
+                            <label style={{float: 'right'}}>
+                                {Number(this.state.currentEthBlockNum - this.props.eth_block_num) > 30
                                     ? '已确认' : Number(this.state.currentEthBlockNum - this.props.eth_block_num)} /30
                             </label>
                             {/* {this.getStatusNum(this.props.status) === 1 && 
@@ -169,15 +182,15 @@ class TransactionE2A extends React.Component {
                             <label style={{float: 'right'}}>Failed</label>}
                         </div>
                         <div className="transactionDetailSingleItem">
-                            <label>交易哈希：</label>
+                            <label>ebc 交易哈希：</label>
                             {/* 初始状态（即已经获取到了eth hash和blockNum），还未发起，此时状态为NA */}
                             {this.getStatusNum(this.props.status) === 1 && <label style={{float: 'right'}}>NA</label>}
                             {/* 2, 3三种状态中，都已经得到了appChain的hash，显示哈希 */}
                             {(this.getStatusNum(this.props.status) > 1 && this.getStatusNum(this.props.status) < 4) &&
-                            <label style={{float: 'right'}}>{this.props.ac_tx_hash}</label>}
+                            <label style={{float: 'right'}}>{microscopeLink}</label>}
                             {/* 4 状态表示失败，可能有hash也可能没有，显示或不显示都在后mark为失败 */}
                             {this.getStatusNum(this.props.status) === 4 &&
-                            <label style={{float: 'right'}}>{this.props.ac_tx_hash} (Failed)</label>}
+                            <label style={{float: 'right'}}>{microscopeLink} (Failed)</label>}
                         </div>
                     </div>
                 </div>
