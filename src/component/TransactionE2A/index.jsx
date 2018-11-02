@@ -2,6 +2,7 @@ import React from 'react'
 import '../../styles/tx.css'
 import {Icon} from 'antd'
 import TxStatusBar from '../txStatusBar'
+import TxDetail from '../txDetail'
 
 const log = console.log.bind(console, '###')
 
@@ -67,6 +68,7 @@ class TransactionE2A extends React.Component {
             startedTime,
             status,
             eth_block_num,
+            currentEthBlockNum,
         } = this.props
 
         const txStatusBarInfo = {
@@ -75,61 +77,17 @@ class TransactionE2A extends React.Component {
             status,
         }
 
-        const etherScanLink = <a target="_blank" rel="noopener noreferrer"
-                                 href={'https://kovan.etherscan.io/tx/' + eth_tx_hash}>{eth_tx_hash}</a>
-
-        const microscopeLink = <a target="_blank" rel="noopener noreferrer"
-                                  href={'http://microscope.cryptape.com/#/transaction/' + ac_tx_hash}>{ac_tx_hash}</a>
-        const showTxDetail = (showDetails) => {
-            if (showDetails) {
-                return(
-                    <div className="transactionDetail">
-                        <div className="transactionDetailItems">
-                            <div className="transactionDetailSingleItem">
-                                <label>转账发起：</label>
-                                <label style={{float: 'right'}}>{this.parseTimeStamp(startedTime)}</label>
-                            </div>
-                            <div className="transactionDetailSingleItem">
-                                <label>ether 交易哈希：</label>
-                                {/*<label style={{float: 'right'}}>{this.props.eth_tx_hash}</label>*/}
-                                <label style={{float: 'right'}}>{etherScanLink}</label>
-                            </div>
-                            <div className="transactionDetailSingleItem">
-                                <label>转账确认：</label>
-                                {/* 初始状态（即已经获取到了eth hash和blockNum），是要显示 confirmation 数量*/}
-                                <label style={{float: 'right'}}>
-                                    {Number(this.state.currentEthBlockNum - eth_block_num) > 30
-                                        ? '已确认' : Number(this.state.currentEthBlockNum - eth_block_num)} /30
-                                </label>
-                            </div>
-                            <div className="transactionDetailSingleItem">
-                                <label>兑换确认：</label>
-                                {/* 初始状态（即已经获取到了eth hash和blockNum），还未发起，此时状态为NA */}
-                                {this.getStatusNum(status) === 1 && <label style={{float: 'right'}}>NA</label>}
-                                {/* 非初始状态，此时状态为 Completed，因为 appChain 上的交易，只要发起就可以确认，不存在pending状态 */}
-                                {(this.getStatusNum(status) > 1 && this.getStatusNum(status) < 4) &&
-                                <label style={{float: 'right'}}>Completed</label>}
-                                {/* 5 状态表示失败，可能原因很多，显示失败状态在这里 */}
-                                {this.getStatusNum(status) === 4 &&
-                                <label style={{float: 'right'}}>Failed</label>}
-                            </div>
-                            <div className="transactionDetailSingleItem">
-                                <label>ebc 交易哈希：</label>
-                                {/* 初始状态（即已经获取到了eth hash和blockNum），还未发起，此时状态为NA */}
-                                {this.getStatusNum(status) === 1 && <label style={{float: 'right'}}>NA</label>}
-                                {/* 2, 3三种状态中，都已经得到了appChain的hash，显示哈希 */}
-                                {(this.getStatusNum(status) > 1 && this.getStatusNum(status) < 4) &&
-                                <label style={{float: 'right'}}>{microscopeLink}</label>}
-                                {/* 4 状态表示失败，可能有hash也可能没有，显示或不显示都在后mark为失败 */}
-                                {this.getStatusNum(status) === 4 &&
-                                <label style={{float: 'right'}}>{microscopeLink} (Failed)</label>}
-                            </div>
-                        </div>
-                    </div>
-                )
-            }
+        const txDetailInfo = {
+            status,
+            startedTime,
+            eth_block_num,
+            eth_tx_hash,
+            ac_tx_hash,
+            currentEthBlockNum,
         }
+
         return (
+
             <div className='e2a'>
                 <div className="transactionMeta" onClick={this.toggleDetails}>
                     <div className="transactionMetaInfo">
@@ -139,7 +97,7 @@ class TransactionE2A extends React.Component {
                     </div>
                     <TxStatusBar {...txStatusBarInfo}/>
                 </div>
-                {showTxDetail(this.state.showDetails)}
+                {this.state.showDetails ? <TxDetail parseTimeStamp={this.parseTimeStamp}{...txDetailInfo}/> : ''}
             </div>
         );
     };
