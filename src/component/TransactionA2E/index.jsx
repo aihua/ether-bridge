@@ -1,7 +1,8 @@
 import React from 'react';
-// import "./transactionA2E.css";
 import '../../styles/tx.css';
 import {Icon} from "antd";
+
+const log = console.log.bind(console, '###')
 
 class TransactionA2E extends React.Component {
 
@@ -14,15 +15,20 @@ class TransactionA2E extends React.Component {
             pending: 2,     //'getEthHash',
             completed: 3,   //'getEthBlockNum',
             success: 4,     //'getEthConfirm',
-            failed: 5       //'failed'
+            failed: 5,       //'failed'
         };
+
+        // started: 1,     //'getEthHash and blockNum',
+        //     pending: 2,     //'getAppChain hash',
+        //     completed: 3,   //'getAppChain receipt without err',
+        //     failed: 4
 
         this.state = {
             showDetails: false,
             currentEthBlockNum: 0
         }
 
-        this.toggleDetails = this.toggleDetails.bind(this);
+        // this.toggleDetails = this.toggleDetails.bind(this);
         // this.getStatusNum = this.getStatusNum.bind(this);
     }
 
@@ -50,17 +56,11 @@ class TransactionA2E extends React.Component {
         this.getBlockNumber();
     }
 
-    toggleDetails() {
-        console.log("toggled")
-        if (this.state.showDetails) {
-            this.setState({
-                showDetails: false
-            });
-        } else {
-            this.setState({
-                showDetails: true
-            });
-        }
+    toggleDetails = () => {
+        log('toggled')
+        this.setState({
+            showDetails: !this.state.showDetails
+        })
     }
 
     parseTimeStamp = (timestamp) => {
@@ -78,7 +78,7 @@ class TransactionA2E extends React.Component {
     }
 
     render() {
-
+        // log('tx in A2E:', this.props)
         const imgPath = './Rectangle6.png';
         const imgPathDisabled = './Rectangle6_disable.png';
 

@@ -54,7 +54,7 @@ class Transactions extends React.Component {
         txs.sort((a, b) => {
             return b['startedTime'] - a['startedTime'];
         })
-        console.log(txs);
+        // console.log('###txs:', txs);
 
         const txsToShow = txs.map((tx, i) => {
             if (tx['txType'] === 'ebc2eth') {
