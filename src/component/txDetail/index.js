@@ -10,10 +10,11 @@ class TxDetail extends React.Component {
         }
     }
 
-    queryLink = (txHash) => {
+    queryLink = (txHash, txHashType) => {
+        console.log(txHash)
         return (
             <a target="_blank" rel="noopener noreferrer"
-               href={this.queryUrl[txHash] + txHash}>{txHash}</a>
+               href={this.queryUrl[txHashType] + txHash}>{txHash}</a>
         )
     }
 
@@ -37,9 +38,9 @@ class TxDetail extends React.Component {
             },
             txHash: {
                 started: 'NA',
-                pending: this.queryLink(ac_tx_hash),
-                completed: this.queryLink(ac_tx_hash),
-                failed: this.queryLink(ac_tx_hash) + '(Failed)',
+                pending: this.queryLink(ac_tx_hash, 'ac_tx_hash'),
+                completed: this.queryLink(ac_tx_hash, 'ac_tx_hash'),
+                failed: 'Failed',
             },
         }
         return (
@@ -51,7 +52,7 @@ class TxDetail extends React.Component {
                     </div>
                     <div className="transactionDetailSingleItem">
                         <label>ether 交易哈希：</label>
-                        <label style={{float: 'right'}}>{this.queryLink(eth_tx_hash)}</label>
+                        <label style={{float: 'right'}}>{this.queryLink(eth_tx_hash, 'eth_tx_hash')}</label>
                     </div>
                     <div className="transactionDetailSingleItem">
                         <label>转账确认：</label>
@@ -61,7 +62,7 @@ class TxDetail extends React.Component {
                                 ?
                                 '已确认'
                                 :
-                                Number(currentEthBlockNum - eth_block_num)} / 30
+                                Number(currentEthBlockNum - eth_block_num)} /30
                         </label>
                     </div>
                     <div className="transactionDetailSingleItem">
