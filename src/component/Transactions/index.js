@@ -1,7 +1,8 @@
-import React from 'react';
-import {Row, Col} from 'antd';
-import TransactionItem from './TransactionItem';
-import nervosConfig from '../../nervos';
+import React from 'react'
+import {Row, Col} from 'antd'
+import './tx.css'
+import TransactionItem from './TransactionItem'
+import nervos from '../../nervos'
 
 const log = console.log.bind(console, '###')
 
@@ -37,30 +38,23 @@ class Transactions extends React.Component {
         }
     }
 
-    getTransactions() {
-        Promise.all([this.getEbc2EthData(), this.getEth2EbcData()])
-            .then(res => this.setState({transactions: res}));
-        setTimeout(_ => this.getTransactions(), 5000);
-    }
-
-    componentDidMount() {
-        this.getTransactions();
-        // setInterval(
-        //     Promise.all([this.getEbc2EthData(), this.getEth2EbcData()])
-        //         .then(res => this.setState({transactions: res})),
-        //     5000)
-    }
-
     getEbc2EthData() {
-        return fetch(nervosConfig.apiAddr + '/ebc_to_eths/' + this.props.neuronWebAddress.toLowerCase(), {
+        return fetch(nervos.apiAddr + '/ebc_to_eths/' + this.props.neuronWebAddress.toLowerCase(), {
             method: "GET"
         }).then(res => res.json())
     }
 
     getEth2EbcData() {
-        return fetch(nervosConfig.apiAddr + '/eth_to_ebcs/' + this.props.neuronWebAddress.toLowerCase(), {
+        return fetch(nervos.apiAddr + '/eth_to_ebcs/' + this.props.neuronWebAddress.toLowerCase(), {
             method: "GET"
         }).then(res => res.json())
+    }
+
+    componentDidMount() {
+        setInterval(() => {
+                Promise.all([this.getEbc2EthData(), this.getEth2EbcData()])
+                    .then(res => this.setState({transactions: res}))
+        }, 5000)
     }
 
 

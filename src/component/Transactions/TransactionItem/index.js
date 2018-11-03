@@ -1,5 +1,4 @@
 import React from 'react'
-import '../tx.css'
 import {Icon} from 'antd'
 import TxStatusBar from '../txStatusBar'
 import TxDetail from '../txDetail'
@@ -15,13 +14,6 @@ class TransactionItem extends React.Component {
             currentEthBlockNum: 0,
         }
 
-        // this.STATUS = {
-        //     started: 1,     //'getEthHash and blockNum',
-        //     pending: 2,     //'getAppChain hash',
-        //     completed: 3,   //'getAppChain receipt without err',
-        //     failed: 4       //'failed'
-        // };
-
     }
 
     toggleDetails = () => {
@@ -30,10 +22,6 @@ class TransactionItem extends React.Component {
             showDetails: !this.state.showDetails
         })
     }
-
-    // getStatusNum(status) {
-    //     return this.STATUS[status];
-    // }
 
     componentDidMount() {
         setInterval(() => {

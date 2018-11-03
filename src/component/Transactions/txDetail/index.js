@@ -57,20 +57,10 @@ class TxDetail extends React.Component {
             status,
             startedTime,
             eth_block_num,
-            // eth_tx_hash,
-            // ac_tx_hash,
             txType,
             transactionType,
             currentEthBlockNum,
         } = this.props
-
-        // this.STATUS = {
-        //     started: 1,     //'getAppChainHash',
-        //     pending: 2,     //'getEthHash',
-        //     completed: 3,   //'getEthBlockNum',
-        //     success: 4,     //'getEthConfirm',
-        //     failed: 5,       //'failed'
-        // };
 
         const s = {
             confirmE2A: {
@@ -102,29 +92,6 @@ class TxDetail extends React.Component {
             },
         }
 
-        // const s2 = {
-        //     confirmA2E: {
-        //         started: 'NA',
-        //         pending: 'Completed',
-        //         completed: 'Completed',
-        //         failed: 'Failed'
-        //     },
-        //     txLaunch: {
-        //         started: 'NA',
-        //         pending: '0/30',
-        //         completed: this.blockNumberStatus(currentEthBlockNum, eth_block_num),
-        //         success: this.blockNumberStatus(currentEthBlockNum, eth_block_num),
-        //         failed: 'Failed',
-        //     },
-        //     txHash: {
-        //         started: 'NA',
-        //         pending: this.queryLink(eth_tx_hash, 'eth_tx_hash'),
-        //         completed: this.queryLink(eth_tx_hash, 'eth_tx_hash'),
-        //         success: this.queryLink(eth_tx_hash, 'eth_tx_hash'),
-        //         failed: this.queryLink(eth_tx_hash, 'eth_tx_hash') + '(Failed)',
-        //     },
-        // }
-
         return (
             <div className="transactionDetail">
                 <div className="transactionDetailItems">
@@ -138,7 +105,6 @@ class TxDetail extends React.Component {
                     </div>
                     <div className="transactionDetailSingleItem">
                         <label>{transactionType[txType][3]}</label>
-                        {/* 初始状态（即已经获取到了eth hash和blockNum），是要显示 confirmation 数量*/}
                         {this.blockNumberStatus(currentEthBlockNum, eth_block_num)}
                     </div>
                     <div className="transactionDetailSingleItem">
