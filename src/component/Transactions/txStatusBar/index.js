@@ -10,10 +10,14 @@ class TxStatusBar extends React.Component {
     }
 
     render() {
-        const {status} = this.props
+        const {
+            status,
+            txType,
+            transactionType,
+        } = this.props
 
-        // stage block info
-        const s = {
+        // eth2ebc stage block info
+        const s1 = {
             stage1: {
                 started: ['转账确认中', imgPathDisabled, 'disabled'],
                 pending: ['转账确认', imgPath, 'enabled'],
@@ -28,10 +32,36 @@ class TxStatusBar extends React.Component {
             }
         }
 
+        //ebc2eth stage block info
+        const s2 = {
+            stage1: {
+                started: ['--', imgPathDisabled, 'disabled'],
+                pending: ['兑换发起', imgPath, 'enabled'],
+                completed: ['兑换发起', imgPath, 'enabled'],
+                success: ['兑换发起', imgPath, 'enabled'],
+                failed: this.isTxHashExist() ? ['交易成功', imgPath, 'enabled'] : ['交易失败', imgPathDisabled, 'disabled'],
+            },
+            stage2: {
+                started: ['--', imgPathDisabled, 'disabled'],
+                pending: ['兑换确认中', imgPathDisabled, 'disabled'],
+                completed: ['兑换确认中', imgPathDisabled, 'disabled'],
+                success: ['兑换完成', imgPath, 'enabled'],
+                failed: [this.isTxHashExist() ? '兑换失败' : '--', imgPathDisabled, 'disabled'],
+            }
+        }
+
+        // choose display section according to txType
+        let s = {}
+        if(txType === 'eth2ebc') {
+            s = s1
+        } else if(txType === 'ebc2eth') {
+            s = s2
+        }
+
         return (
             <div className="transctionMetaStatus">
                 <div className="transctionMetaSingleStatus">
-                    <div>转账发起</div>
+                    <div>{transactionType[txType][2]}</div>
                     <img src={imgPath} alt="enabled"/>
                 </div>
                 <div className="transctionMetaSingleStatus">

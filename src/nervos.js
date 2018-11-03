@@ -7,4 +7,5 @@ const nervos = Nervos(config.chain) // config.chain indicates that the address o
 nervos.contractAddress = config.contractAddress
 nervos.adminAddress = config.adminAddress
 nervos.apiAddr = config.api
+
 module.exports = nervos

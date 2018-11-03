@@ -1,39 +1,39 @@
 import React from 'react'
-import '../../styles/tx.css'
+import '../tx.css'
 import {Icon} from 'antd'
 import TxStatusBar from '../txStatusBar'
 import TxDetail from '../txDetail'
 
 const log = console.log.bind(console, '###')
 
-class TransactionE2A extends React.Component {
+class TransactionItem extends React.Component {
 
     constructor() {
-        super();
+        super()
         this.state = {
             showDetails: false,
             currentEthBlockNum: 0,
         }
 
-        this.STATUS = {
-            started: 1,     //'getEthHash and blockNum',
-            pending: 2,     //'getAppChain hash',
-            completed: 3,   //'getAppChain receipt without err',
-            failed: 4       //'failed'
-        };
+        // this.STATUS = {
+        //     started: 1,     //'getEthHash and blockNum',
+        //     pending: 2,     //'getAppChain hash',
+        //     completed: 3,   //'getAppChain receipt without err',
+        //     failed: 4       //'failed'
+        // };
 
     }
 
     toggleDetails = () => {
-        log('toggled')
+        // log('toggled')
         this.setState({
             showDetails: !this.state.showDetails
         })
     }
 
-    getStatusNum(status) {
-        return this.STATUS[status];
-    }
+    // getStatusNum(status) {
+    //     return this.STATUS[status];
+    // }
 
     componentDidMount() {
         setInterval(() => {
@@ -68,13 +68,23 @@ class TransactionE2A extends React.Component {
             startedTime,
             status,
             eth_block_num,
-            currentEthBlockNum,
+            txType,
+            wd_tx_hash,
         } = this.props
+
+        // log('txType:', txType)
+
+        const transactionType = {
+            eth2ebc: ['eth', 'ebc', '转账发起', '转账确认：',],
+            ebc2eth: ['ebc', 'eth', '转账确认', '兑换发起：',],
+        }
 
         const txStatusBarInfo = {
             eth_tx_hash,
             ac_tx_hash,
             status,
+            txType,
+            transactionType,
         }
 
         const txDetailInfo = {
@@ -83,15 +93,19 @@ class TransactionE2A extends React.Component {
             eth_block_num,
             eth_tx_hash,
             ac_tx_hash,
-            currentEthBlockNum,
+            txType,
+            transactionType,
+            wd_tx_hash,
+            currentEthBlockNum: this.state.currentEthBlockNum,
         }
 
         return (
 
-            <div className='e2a'>
+            <div>
                 <div className="transactionMeta" onClick={this.toggleDetails}>
                     <div className="transactionMetaInfo">
-                        <label>-{this.parseValue(value)} eth -> +{this.parseValue(value)} ebc </label>
+                        <label>-{this.parseValue(value) + ' ' + transactionType[txType][0]} ->
+                            +{this.parseValue(value) + ' ' + transactionType[txType][1]}  </label>
                         <label><Icon type="clock-circle" theme="outlined"/>{this.parseTimeStamp(startedTime)}
                         </label>
                     </div>
@@ -103,4 +117,4 @@ class TransactionE2A extends React.Component {
     };
 }
 
-export default TransactionE2A;
+export default TransactionItem;
