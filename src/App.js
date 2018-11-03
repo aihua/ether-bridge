@@ -1,18 +1,17 @@
 import React from "react"
 import "./App.css"
 import nervos from './nervos'
+import SliderPanel from './component/SliderPanel'
+import TransctionPanel from './component/Transactions';
 import {
     Row,
     Col,
 } from 'antd'
 
-import SliderPanel from './component/SliderPanel'
-import TransctionPanel from './component/Transactions';
-
 const {abi} = require('./contracts/compiled')
-
-
 const transaction = require('./contracts/transaction')
+
+// get contract instance
 const transferContract = new nervos.appchain.Contract(abi, nervos.contractAddress)
 
 class App extends React.Component {
@@ -27,7 +26,6 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        // log('transferContract', transferContract)
         transferContract.methods.balanceOf(this.state.neuronWebAddress).call().then((res) => {
             this.setState({
                 ebcBalance: Number(res),
@@ -72,10 +70,10 @@ class App extends React.Component {
             isAddressSame ?
                 <React.Fragment>
                     <Row className='header-banner'>
-                        <Col span={24} ></Col>
+                        <Col span={24}></Col>
                     </Row>
                     <Row className='dapp-title'>
-                        <Col span={24} >Ether Bridge</Col>
+                        <Col span={24}>Ether Bridge</Col>
                     </Row>
                     <Row className='account-address'>
                         <Col span={24}>Address: {neuronWebAddress}</Col>
@@ -85,13 +83,13 @@ class App extends React.Component {
                             <img src="./ether-icon.png" alt=""/>
                         </Col>
                         <Col className='Rectangle-2' span={8}>
-                                <span className={'ether'}>ether</span>
-                                <span className={'token-value'}>{this.parseValue(ethBalance)}</span>
+                            <span className={'ether'}>ether</span>
+                            <span className={'token-value'}>{this.parseValue(ethBalance)}</span>
                         </Col>
                         <Col className='token-icon' span={2}>
                             <img className='exchange-icon' src="./exchange-icon.png" alt=""/>
                         </Col>
-                        <Col className='token-icon' span={3} >
+                        <Col className='token-icon' span={3}>
                             <img src="./ebc-icon.png" alt=""/>
                         </Col>
                         <Col className='Rectangle-2' span={8}>
@@ -102,7 +100,7 @@ class App extends React.Component {
                     <SliderPanel {...sliderInfo}/>
                     <TransctionPanel neuronWebAddress={neuronWebAddress}/>
                     <Row className='footer-banner'>
-                        <Col span={24} ></Col>
+                        <Col span={24}></Col>
                     </Row>
                 </React.Fragment>
 
@@ -110,7 +108,7 @@ class App extends React.Component {
 
                 <React.Fragment>
                     <Row className='header-banner'>
-                        <Col span={24} ></Col>
+                        <Col span={24}></Col>
                     </Row>
                     <Row className='dapp-title'>
                         <Col span={24}>Ether Bridge</Col>
@@ -119,7 +117,7 @@ class App extends React.Component {
                         <Col span={24}>MetaMask address is not as same with neuron-web address.</Col>
                     </Row>
                     <Row className='footer-banner'>
-                        <Col span={24} ></Col>
+                        <Col span={24}></Col>
                     </Row>
                 </React.Fragment>
         )

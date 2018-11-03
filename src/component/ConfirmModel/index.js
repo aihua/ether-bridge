@@ -11,7 +11,7 @@ class ConfirmModel extends React.Component {
     handleExchange = () => {
         let ebcBalance = this.parseValue(this.props.ebcBalance)
         let transferVal = NP.minus(this.props.inputValue, ebcBalance)
-        // log(this.props.inputValue, ebcBalance, transferVal)
+
         if (transferVal < 0) {
             // ebc -> eth
             log('transferVal < 0 ebc -> eth')
@@ -60,22 +60,7 @@ class ConfirmModel extends React.Component {
     render() {
         let ebcBalance = this.parseValue(this.props.ebcBalance)
         let transferVal = NP.minus(this.props.inputValue, ebcBalance)
-        // log('this.props.ebcBalance', this.props.ebcBalance)
-        // log('this.props.inputValue', this.props.inputValue)
-        // log('ebcBalance', ebcBalance)
-        // log('transferVal', transferVal)
-        // log(this.props.ebcBalance, this.props.inputValue, ebcBalance, transferVal)
-
-        let unit1 = ''
-        let unit2 = ''
-
-        if (transferVal > 0) {
-            unit1 = 'ether'
-            unit2 = 'ebc'
-        } else {
-            unit1 = 'ebc'
-            unit2 = 'ether'
-        }
+        let unit = transferVal > 0 ? ['ether', 'ebc'] : ['ebc', 'ether']
 
         return (
             <Row>
@@ -88,8 +73,8 @@ class ConfirmModel extends React.Component {
                         centered={true}
                     >
                         <div className={'confirm-info'}>
-                            <p>确认把 <span>{Math.abs(transferVal.toFixed(4))}</span> {unit1}</p>
-                            <p>转换为 <span>{Math.abs(transferVal.toFixed(4))}</span> {unit2} 吗？</p>
+                            <p>确认把 <span>{Math.abs(transferVal.toFixed(4))}</span> {unit[0]}</p>
+                            <p>转换为 <span>{Math.abs(transferVal.toFixed(4))}</span> {unit[1]} 吗？</p>
                         </div>
                     </Modal>
                 </Col>

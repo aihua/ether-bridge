@@ -51,17 +51,20 @@ const config = {
     contractAddress: '',
     adminAddress: '', 
     api: '', 
+    e2aApi: '',
+    a2eApi: '',
     }
     
 module.exports = config
-
 ```
 `Parameters`
 
 - `chain` - `String`: your chain address
 - `contractAddress` - `String`: your contract 
 - `adminaddress` - `String`: your admin account address which interact with contract to receive and send ether.
--  `api` - `String`: your back-end api url
+-  `api` - `String`: your back-end api url.
+-  `e2aApi` - `String`: address to get all ether to ebc transactions.
+-  `a2eApi` - `String`: address to get all ebc to ether transactions.
 
 4.Start your server
 
@@ -127,6 +130,6 @@ tar -zxvf ether-bridge.tar.gz  // Unpack ether-bridge
 6.Use a static files server, e.g. [NGINX](https://www.nginx.com/) to serve the ether-bridge directory
 
 
-## TODO List
+## Todo List
 
-- Input box is not works so well. You can use slider instead.
+- Input box doesn't work so well. You can use slider instead.

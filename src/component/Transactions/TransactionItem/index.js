@@ -3,8 +3,6 @@ import {Icon} from 'antd'
 import TxStatusBar from '../txStatusBar'
 import TxDetail from '../txDetail'
 
-const log = console.log.bind(console, '###')
-
 class TransactionItem extends React.Component {
 
     constructor() {
@@ -28,9 +26,7 @@ class TransactionItem extends React.Component {
             window.web3.eth.getBlockNumber((err, res) => this.setState({
                 currentEthBlockNum: res
             }))
-
-            log('curt eth block number:' + this.state.currentEthBlockNum)
-        }, 5000)
+        }, 500)
     }
 
     parseTimeStamp = (timestamp) => {

@@ -9,8 +9,6 @@ import {
 import './sliderPanel.css'
 import ConfirmModel from '../ConfirmModel'
 
-const log = console.log.bind(console, '###')
-
 class SliderPanel extends React.Component {
 
     state = ({
@@ -22,7 +20,6 @@ class SliderPanel extends React.Component {
     })
 
     componentDidMount() {
-        // log('transferContract', transferContract)
         this.props.transferContract.methods.balanceOf(this.props.neuronWebAddress).call().then((res) => {
             this.setState({
                 ebcBalance: Number(res) / 1e18,
@@ -51,7 +48,6 @@ class SliderPanel extends React.Component {
     }
 
     handleCancelBtn = () => {
-        log('cancel button')
         this.props.transferContract.methods.balanceOf(this.props.neuronWebAddress).call().then((res) => {
             this.setState({
                 ebcBalance: Number(res) / 1e18,
@@ -67,7 +63,6 @@ class SliderPanel extends React.Component {
         this.setState({
             isVisible: !this.state.isVisible
         })
-        log('isVisible', this.state.isVisible)
     }
 
     parseValue = (value) => {
@@ -102,11 +97,6 @@ class SliderPanel extends React.Component {
             transaction,
             transferContract,
         }
-
-        // log('eth', this.parseValue(ethBalance))
-        // log('ebc', this.parseValue(ebcBalance))
-        // log('ebc + eth', this.parseValue(ethBalance) + this.parseValue(ebcBalance))
-        // log('input value', inputValue)
 
         //TODO Input Form has BUG
         return (
