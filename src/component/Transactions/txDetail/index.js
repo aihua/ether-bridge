@@ -11,7 +11,6 @@ class TxDetail extends React.Component {
     }
 
     queryLink = (txHash, txHashType) => {
-        // console.log(txHash)
         return (
             <a target="_blank" rel="noopener noreferrer"
                href={this.queryUrl[txHashType] + txHash}>{txHash}</a>
@@ -42,7 +41,6 @@ class TxDetail extends React.Component {
     }
 
     txConfirmPanel = (txType) => {
-        // console.log('txType in panel:', txType)
         if(txType === 'eth2ebc') {
             return 'confirmE2A'
         } else if(txType === 'ebc2eth') {
@@ -52,7 +50,6 @@ class TxDetail extends React.Component {
 
 
     render() {
-
         const {
             status,
             startedTime,

@@ -1,6 +1,6 @@
 import React from 'react'
 import './transactions.css'
-import TransactionItem from './TransactionItem'
+import TransactionItem from './txItem'
 import nervos from '../../nervos'
 import {
     Row,
@@ -60,10 +60,14 @@ class Transactions extends React.Component {
     getAllTxs = () => {
         let {transactions} = this.state
 
-        let tx1 = transactions[0] //ebc_to_eth txs
-        let tx2 = transactions[1] //eth_to_ebc txs
+        //ebc_to_eth txs
+        let tx1 = transactions[0]
+
+        //eth_to_ebc txs
+        let tx2 = transactions[1]
 
         let txs = []
+
         // to make sure all txs are valid type
         if (this.isTxsEmpty(tx1, tx2)) {
             let tx1Type = this.getTxsType(tx1)

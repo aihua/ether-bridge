@@ -13,7 +13,6 @@ class ConfirmModel extends React.Component {
         let transferVal = NP.minus(this.props.inputValue, ebcBalance)
 
         if (transferVal < 0) {
-            // ebc -> eth
             log('transferVal < 0 ebc -> eth')
             nervos.appchain.getBlockNumber().then((res) => {
                 const num = Number(res)
@@ -34,7 +33,6 @@ class ConfirmModel extends React.Component {
                 log(err.message)
             })
         } else {
-            // eth -> ebc
             log('transferVal > 0 eth -> ebc')
             transferVal = window.web3.toWei(Math.abs(transferVal), 'ether')
             window.web3.eth.sendTransaction({
@@ -66,7 +64,6 @@ class ConfirmModel extends React.Component {
             <Row>
                 <Col span={24}>
                     <Modal
-                        // title="Basic Modal"
                         visible={this.props.isVisible}
                         onOk={this.handleOK}
                         onCancel={this.props.toggleModel}
@@ -82,6 +79,5 @@ class ConfirmModel extends React.Component {
         )
     }
 }
-
 
 export default ConfirmModel

@@ -1,4 +1,6 @@
 import React from "react"
+import './sliderPanel.css'
+import ConfirmModel from '../ConfirmModel'
 import {
     Row,
     Col,
@@ -6,8 +8,6 @@ import {
     Slider,
     InputNumber,
 } from 'antd'
-import './sliderPanel.css'
-import ConfirmModel from '../ConfirmModel'
 
 class SliderPanel extends React.Component {
 

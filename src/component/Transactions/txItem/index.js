@@ -11,11 +11,9 @@ class TransactionItem extends React.Component {
             showDetails: false,
             currentEthBlockNum: 0,
         }
-
     }
 
     toggleDetails = () => {
-        // log('toggled')
         this.setState({
             showDetails: !this.state.showDetails
         })
@@ -44,7 +42,6 @@ class TransactionItem extends React.Component {
     }
 
     render() {
-        // log('tx in E2A:', this.props)
         const {
             eth_tx_hash,
             ac_tx_hash,
@@ -55,8 +52,6 @@ class TransactionItem extends React.Component {
             txType,
             wd_tx_hash,
         } = this.props
-
-        // log('txType:', txType)
 
         const transactionType = {
             eth2ebc: ['eth', 'ebc', '转账发起', '转账确认：',],
@@ -84,7 +79,6 @@ class TransactionItem extends React.Component {
         }
 
         return (
-
             <div>
                 <div className="transactionMeta" onClick={this.toggleDetails}>
                     <div className="transactionMetaInfo">
@@ -97,8 +91,8 @@ class TransactionItem extends React.Component {
                 </div>
                 {this.state.showDetails ? <TxDetail parseTimeStamp={this.parseTimeStamp}{...txDetailInfo}/> : ''}
             </div>
-        );
-    };
+        )
+    }
 }
 
-export default TransactionItem;
+export default TransactionItem
