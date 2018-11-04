@@ -1,18 +1,22 @@
 import React from "react"
-import "./App.css"
-import nervos from './nervos'
-import SliderPanel from './component/SliderPanel'
-import TransctionPanel from './component/Transactions';
 import {
     Row,
     Col,
 } from 'antd'
+import SliderPanel from './component/SliderPanel'
+import TransctionPanel from './component/Transactions';
+import nervos from './nervos'
+import "./App.css"
 
 const {abi} = require('./contracts/compiled')
 const transaction = require('./contracts/transaction')
 
 // get contract instance
 const transferContract = new nervos.appchain.Contract(abi, nervos.contractAddress)
+
+const parseValue = (value) => {
+    return Math.floor(value / 1e14) / 10000
+}
 
 class App extends React.Component {
     state = {
@@ -44,10 +48,6 @@ class App extends React.Component {
         this.setState({
             isAddressSame: this.state.metaMaskAddress.toLowerCase() === this.state.neuronWebAddress.toLowerCase(),
         })
-    }
-
-    parseValue = (value) => {
-        return Math.floor(value / 1e14) / 10000
     }
 
     render() {
@@ -84,7 +84,7 @@ class App extends React.Component {
                         </Col>
                         <Col className='Rectangle-2' span={8}>
                             <span className={'ether'}>ether</span>
-                            <span className={'token-value'}>{this.parseValue(ethBalance)}</span>
+                            <span className={'token-value'}>{parseValue(ethBalance)}</span>
                         </Col>
                         <Col className='token-icon' span={2}>
                             <img className='exchange-icon' src="./exchange-icon.png" alt=""/>
@@ -94,7 +94,7 @@ class App extends React.Component {
                         </Col>
                         <Col className='Rectangle-2' span={8}>
                             <span className={'ether'}>ebc</span>
-                            <span className={'token-value'}>{this.parseValue(ebcBalance)}</span>
+                            <span className={'token-value'}>{parseValue(ebcBalance)}</span>
                         </Col>
                     </Row>
                     <SliderPanel {...sliderInfo}/>

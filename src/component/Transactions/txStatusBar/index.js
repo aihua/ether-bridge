@@ -3,18 +3,16 @@ import React from "react"
 const imgPath = './Rectangle6.png'
 const imgPathDisabled = './Rectangle6_disable.png'
 
+const selectStage = (txType) => {
+    return txType === 'eth2ebc' ?
+        ['eth2ebcStage1', 'eth2ebcStage2'] :
+        ['ebc2ethStage1', 'ebc2ethStage2']
+}
+
 class TxStatusBar extends React.Component {
 
     isTxHashExist = () => {
-        return this.props.ac_tx_hash || this.props.eth_tx_hash
-    }
-
-    selectStage = (txType) => {
-        if(txType === 'eth2ebc') {
-            return ['eth2ebcStage1', 'eth2ebcStage2']
-        } else if(txType === 'ebc2eth') {
-            return ['ebc2ethStage1', 'ebc2ethStage2']
-        }
+        return this.props.acTxHash || this.props.ethTxHash
     }
 
     render() {
@@ -60,15 +58,15 @@ class TxStatusBar extends React.Component {
                     <img src={imgPath} alt="enabled"/>
                 </div>
                 <div className="transctionMetaSingleStatus">
-                    <div>{s[this.selectStage(txType)[0]][status][0]}</div>
-                    <img src={s[this.selectStage(txType)[0]][status][1]}
-                         alt={s[this.selectStage(txType)[0]][status][2]}
+                    <div>{s[selectStage(txType)[0]][status][0]}</div>
+                    <img src={s[selectStage(txType)[0]][status][1]}
+                         alt={s[selectStage(txType)[0]][status][2]}
                     />
                 </div>
                 <div className="transctionMetaSingleStatus">
-                    <div>{s[this.selectStage(txType)[1]][status][0]}</div>
-                    <img src={s[this.selectStage(txType)[1]][status][1]}
-                         alt={s[this.selectStage(txType)[1]][status][2]}
+                    <div>{s[selectStage(txType)[1]][status][0]}</div>
+                    <img src={s[selectStage(txType)[1]][status][1]}
+                         alt={s[selectStage(txType)[1]][status][2]}
                     />
                 </div>
             </div>

@@ -6,10 +6,14 @@ import './confirmModel.css'
 const NP = require('number-precision')
 const log = console.log.bind(console, '###')
 
+const parseValue = (value) => {
+    return Math.floor(value * 10000) / 10000
+}
+
 class ConfirmModel extends React.Component {
 
     handleExchange = () => {
-        let ebcBalance = this.parseValue(this.props.ebcBalance)
+        let ebcBalance = parseValue(this.props.ebcBalance)
         let transferVal = NP.minus(this.props.inputValue, ebcBalance)
 
         if (transferVal < 0) {
@@ -51,12 +55,8 @@ class ConfirmModel extends React.Component {
         this.props.toggleModel()
     }
 
-    parseValue = (value) => {
-        return Math.floor(value * 10000) / 10000
-    }
-
     render() {
-        let ebcBalance = this.parseValue(this.props.ebcBalance)
+        let ebcBalance = parseValue(this.props.ebcBalance)
         let transferVal = NP.minus(this.props.inputValue, ebcBalance)
         let unit = transferVal > 0 ? ['ether', 'ebc'] : ['ebc', 'ether']
 

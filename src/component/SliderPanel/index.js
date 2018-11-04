@@ -1,6 +1,4 @@
 import React from "react"
-import './sliderPanel.css'
-import ConfirmModel from '../ConfirmModel'
 import {
     Row,
     Col,
@@ -8,6 +6,12 @@ import {
     Slider,
     InputNumber,
 } from 'antd'
+import ConfirmModel from '../ConfirmModel'
+import './sliderPanel.css'
+
+const parseValue = (value) => {
+    return Math.floor(value * 10000) / 10000
+}
 
 class SliderPanel extends React.Component {
 
@@ -65,10 +69,6 @@ class SliderPanel extends React.Component {
         })
     }
 
-    parseValue = (value) => {
-        return Math.floor(value * 10000) / 10000
-    }
-
     render() {
 
         let {
@@ -79,9 +79,9 @@ class SliderPanel extends React.Component {
             isDisable,
         } = this.state
 
-        ethBalance = this.parseValue(ethBalance)
-        ebcBalance = this.parseValue(ebcBalance)
-        inputValue = this.parseValue(inputValue)
+        ethBalance = parseValue(ethBalance)
+        ebcBalance = parseValue(ebcBalance)
+        inputValue = parseValue(inputValue)
 
         let {
             metaMaskAddress,
