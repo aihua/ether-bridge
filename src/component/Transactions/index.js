@@ -3,9 +3,9 @@ import {
     Row,
     Col,
 } from 'antd'
-import './transactions.css'
 import TransactionItem from './txItem'
 import nervos from '../../nervos'
+import './transactions.css'
 
 //check transaction type
 const getTxsType = (undecidedTxs) => {
@@ -25,7 +25,6 @@ const isTxsEmpty = (a2eTxs, e2aTxs) => {
 }
 
 class Transactions extends React.Component {
-
 
     constructor() {
         super()
@@ -58,7 +57,6 @@ class Transactions extends React.Component {
             method: "GET"
         }).then(res => res.json())
     }
-
 
     // get all transactions
     getAllTxs = () => {

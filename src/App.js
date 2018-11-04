@@ -19,6 +19,7 @@ const parseValue = (value) => {
 }
 
 class App extends React.Component {
+
     state = {
         metaMaskAddress: window.web3.eth.defaultAccount || '',
         neuronWebAddress: nervos.appchain.defaultAccount || '',
