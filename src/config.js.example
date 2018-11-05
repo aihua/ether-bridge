@@ -1,0 +1,10 @@
+const config = {
+    chain: '', // your chain address
+    contractAddress: '', // your contract address
+    adminAddress: '', // your admin address
+    api: '',  // your back-end api url
+    e2aApi: '' //your back-end e2aApi url
+    a2eApi: '' //your back-end a2eApi url
+    }
+
+module.exports = config
