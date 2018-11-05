@@ -6,10 +6,12 @@ import {
     Slider,
     InputNumber,
 } from 'antd'
-import './sliderPanel.css'
 import ConfirmModel from '../ConfirmModel'
+import './sliderPanel.css'
 
-const log = console.log.bind(console, '###')
+const parseValue = (value) => {
+    return Math.floor(value * 10000) / 10000
+}
 
 class SliderPanel extends React.Component {
 
@@ -22,7 +24,6 @@ class SliderPanel extends React.Component {
     })
 
     componentDidMount() {
-        // log('transferContract', transferContract)
         this.props.transferContract.methods.balanceOf(this.props.neuronWebAddress).call().then((res) => {
             this.setState({
                 ebcBalance: Number(res) / 1e18,
@@ -51,7 +52,6 @@ class SliderPanel extends React.Component {
     }
 
     handleCancelBtn = () => {
-        log('cancel button')
         this.props.transferContract.methods.balanceOf(this.props.neuronWebAddress).call().then((res) => {
             this.setState({
                 ebcBalance: Number(res) / 1e18,
@@ -67,11 +67,6 @@ class SliderPanel extends React.Component {
         this.setState({
             isVisible: !this.state.isVisible
         })
-        log('isVisible', this.state.isVisible)
-    }
-
-    parseValue = (value) => {
-        return Math.floor(value * 10000) / 10000
     }
 
     render() {
@@ -84,9 +79,9 @@ class SliderPanel extends React.Component {
             isDisable,
         } = this.state
 
-        ethBalance = this.parseValue(ethBalance)
-        ebcBalance = this.parseValue(ebcBalance)
-        inputValue = this.parseValue(inputValue)
+        ethBalance = parseValue(ethBalance)
+        ebcBalance = parseValue(ebcBalance)
+        inputValue = parseValue(inputValue)
 
         let {
             metaMaskAddress,
@@ -102,11 +97,6 @@ class SliderPanel extends React.Component {
             transaction,
             transferContract,
         }
-
-        // log('eth', this.parseValue(ethBalance))
-        // log('ebc', this.parseValue(ebcBalance))
-        // log('ebc + eth', this.parseValue(ethBalance) + this.parseValue(ebcBalance))
-        // log('input value', inputValue)
 
         //TODO Input Form has BUG
         return (

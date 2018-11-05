@@ -1,0 +1,82 @@
+.txs-to-show {
+    margin-top: 60px;
+}
+
+.transactionMeta {
+    width: 40.8%;
+    height: 165px;
+    margin-left: 28.5%;
+    background-color: #f4f6f6;
+    margin-bottom: 12px;
+}
+
+.transactionMetaInfo {
+    text-align: left;
+    height: 78px;
+    padding-top: 31px
+}
+
+.transactionMetaInfo > label:nth-child(1) {
+    margin-left: 5%
+}
+
+.transactionMetaInfo > label:nth-child(2) {
+    float: right;
+    margin-bottom: 27px;
+    margin-right: 2.8%
+}
+
+.anticon-clock-circle {
+    margin-right: 5px;
+}
+
+.transctionMetaStatus {
+    height: 46px;
+    padding-left: 4.7%
+}
+
+.transctionMetaSingleStatus {
+    float: left;
+    margin-right: 0.5%;
+    width: 32%
+}
+
+.transctionMetaSingleStatus > div {
+    margin-left: 4%;
+    margin-top: 11px;
+    position: absolute
+}
+
+.transctionMetaSingleStatus > img {
+    width: 100%;
+    height: 46px
+}
+
+.transactionDetail {
+    width: 40.8%;
+    height: 215px;
+    margin-left: 28.5%;
+    margin-top: -13px;
+    background-color: #f4f6f6;
+    margin-bottom: 12px;
+}
+
+.transactionDetailItems {
+    width: 91.6%;
+    height: 184px;
+    margin-left: 4.8%;
+    padding-top: 12px;
+    background: rgba(192, 227, 213, 0.15);
+    border: solid 2px #c0e3d5;
+}
+
+.transactionDetailSingleItem {
+    text-align: left;
+    width: 97.7%;
+    margin-bottom: 12px;
+    margin-left: 1.15%
+}
+
+.transactionDetailSingleItem label:nth-child(2){
+    float: right;
+}

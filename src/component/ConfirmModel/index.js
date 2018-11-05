@@ -6,14 +6,17 @@ import './confirmModel.css'
 const NP = require('number-precision')
 const log = console.log.bind(console, '###')
 
+const parseValue = (value) => {
+    return Math.floor(value * 10000) / 10000
+}
+
 class ConfirmModel extends React.Component {
 
     handleExchange = () => {
-        let ebcBalance = this.parseValue(this.props.ebcBalance)
+        let ebcBalance = parseValue(this.props.ebcBalance)
         let transferVal = NP.minus(this.props.inputValue, ebcBalance)
-        // log(this.props.inputValue, ebcBalance, transferVal)
+
         if (transferVal < 0) {
-            // ebc -> eth
             log('transferVal < 0 ebc -> eth')
             nervos.appchain.getBlockNumber().then((res) => {
                 const num = Number(res)
@@ -34,7 +37,6 @@ class ConfirmModel extends React.Component {
                 log(err.message)
             })
         } else {
-            // eth -> ebc
             log('transferVal > 0 eth -> ebc')
             transferVal = window.web3.toWei(Math.abs(transferVal), 'ether')
             window.web3.eth.sendTransaction({
@@ -53,43 +55,23 @@ class ConfirmModel extends React.Component {
         this.props.toggleModel()
     }
 
-    parseValue = (value) => {
-        return Math.floor(value * 10000) / 10000
-    }
-
     render() {
-        let ebcBalance = this.parseValue(this.props.ebcBalance)
+        let ebcBalance = parseValue(this.props.ebcBalance)
         let transferVal = NP.minus(this.props.inputValue, ebcBalance)
-        // log('this.props.ebcBalance', this.props.ebcBalance)
-        // log('this.props.inputValue', this.props.inputValue)
-        // log('ebcBalance', ebcBalance)
-        // log('transferVal', transferVal)
-        // log(this.props.ebcBalance, this.props.inputValue, ebcBalance, transferVal)
-
-        let unit1 = ''
-        let unit2 = ''
-
-        if (transferVal > 0) {
-            unit1 = 'ether'
-            unit2 = 'ebc'
-        } else {
-            unit1 = 'ebc'
-            unit2 = 'ether'
-        }
+        let unit = transferVal > 0 ? ['ether', 'ebc'] : ['ebc', 'ether']
 
         return (
             <Row>
                 <Col span={24}>
                     <Modal
-                        // title="Basic Modal"
                         visible={this.props.isVisible}
                         onOk={this.handleOK}
                         onCancel={this.props.toggleModel}
                         centered={true}
                     >
                         <div className={'confirm-info'}>
-                            <p>确认把 <span>{Math.abs(transferVal.toFixed(4))}</span> {unit1}</p>
-                            <p>转换为 <span>{Math.abs(transferVal.toFixed(4))}</span> {unit2} 吗？</p>
+                            <p>确认把 <span>{Math.abs(transferVal.toFixed(4))}</span> {unit[0]}</p>
+                            <p>转换为 <span>{Math.abs(transferVal.toFixed(4))}</span> {unit[1]} 吗？</p>
                         </div>
                     </Modal>
                 </Col>
@@ -97,6 +79,5 @@ class ConfirmModel extends React.Component {
         )
     }
 }
-
 
 export default ConfirmModel
