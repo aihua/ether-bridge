@@ -1,12 +1,22 @@
 const Nervos = require('@nervos/chain').default
-
 const config = require('./config')
 
-const nervos = Nervos(config.chain) // config.chain indicates that the address of Appchain to interact
+// config.chain indicates that the address of Appchain to interact
+const nervos = Nervos(config.chain)
 
+// set contract address
 nervos.contractAddress = config.contractAddress
-nervos.adminAddress = config.adminAddress
-nervos.a2eApi = config.api + config.a2eApi
-nervos.e2aApi = config.api + config.e2aApi
 
-module.exports = nervos
+// set admin address
+nervos.adminAddress = config.adminAddress
+
+// set ether to ebc and ebc to ether transaction api
+const apiAddress = {
+    e2aApi: config.api + 'ebc_to_eths/',
+    a2eApi: config.api + 'eth_to_ebcs/',
+}
+
+module.exports = {
+    nervos,
+    apiAddress,
+}

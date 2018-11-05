@@ -4,7 +4,7 @@ import {
     Col,
 } from 'antd'
 import TransactionItem from './txItem'
-import nervos from '../../nervos'
+import {apiAddress} from '../../nervos'
 import './transactions.css'
 
 //check transaction type
@@ -47,13 +47,13 @@ class Transactions extends React.Component {
     }
 
     getEbc2EthData() {
-        return fetch(nervos.a2eApi + this.props.neuronWebAddress.toLowerCase(), {
+        return fetch(apiAddress.a2eApi + this.props.neuronWebAddress.toLowerCase(), {
             method: "GET"
         }).then(res => res.json())
     }
 
     getEth2EbcData() {
-        return fetch(nervos.e2aApi + this.props.neuronWebAddress.toLowerCase(), {
+        return fetch(apiAddress.e2aApi + this.props.neuronWebAddress.toLowerCase(), {
             method: "GET"
         }).then(res => res.json())
     }

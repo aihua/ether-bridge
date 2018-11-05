@@ -1,6 +1,6 @@
 import React from "react"
 import {Col, Modal, Row} from 'antd'
-import nervos from '../../nervos'
+import {nervos} from '../../nervos'
 import './confirmModel.css'
 
 const NP = require('number-precision')

@@ -27,7 +27,7 @@ class TxStatusBar extends React.Component {
                 started: ['转账确认中', imgPathDisabled, 'disabled'],
                 pending: ['转账确认', imgPath, 'enabled'],
                 completed: ['转账确认', imgPath, 'enabled'],
-                failed: ['转账失败', imgPath, 'enabled'],
+                failed: ['转账失败', imgPathDisabled, 'disabled'],
             },
             eth2ebcStage2: {
                 started: ['--', imgPathDisabled, 'disabled'],
