@@ -5,7 +5,7 @@ import {
 } from 'antd'
 import SliderPanel from './component/SliderPanel'
 import TransctionPanel from './component/Transactions';
-import nervos from './nervos'
+import {nervos} from './nervos'
 import "./App.css"
 
 const {abi} = require('./contracts/compiled')

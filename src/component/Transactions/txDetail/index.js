@@ -73,7 +73,7 @@ class TxDetail extends React.Component {
                 pending: this.selectQueryLink(txType)[1],
                 completed: this.selectQueryLink(txType)[1],
                 success: this.selectQueryLink(txType)[1],
-                failed: this.selectQueryLink(txType)[1] + '(Failed)',
+                failed: this.selectQueryLink(txType)[1],
             },
         }
 
