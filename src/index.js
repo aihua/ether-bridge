@@ -3,13 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import nervos from './nervos'
+import {nervos} from './nervos'
 
 window.addEventListener('neuronWebReady', () => {
-    window.addMessenger(nervos) // inject new nervos method from neuron-web extension
+    // inject new nervos method from neuron-web extension
+    window.addMessenger(nervos)
+
+    // set timeout to make sure load neurno-web first before render page.
     setTimeout(() => {
-        ReactDOM.render(<App />, document.getElementById('root'));
-    }, 100)                     // set timeout to make sure load neurno-web first before render page.
+        ReactDOM.render(<App />, document.getElementById('root'))
+    }, 100)
 })
 
 // If you want your app to work offline and load faster, you can change

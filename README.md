@@ -51,8 +51,6 @@ const config = {
     contractAddress: '',
     adminAddress: '', 
     api: '', 
-    e2aApi: '',
-    a2eApi: '',
     }
     
 module.exports = config
@@ -63,8 +61,16 @@ module.exports = config
 - `contractAddress` - `String`: your contract 
 - `adminaddress` - `String`: your admin account address which interact with contract to receive and send ether.
 -  `api` - `String`: your back-end api url.
--  `e2aApi` - `String`: address to get all ether to ebc transactions.
--  `a2eApi` - `String`: address to get all ebc to ether transactions.
+
+In `src/nervos.js`, you can set your own api address to get all transactions info.
+
+```javascript
+// set ether to ebc and ebc to ether transaction api
+const apiAddress = {
+    e2aApi: config.api + 'ebc_to_eths/',
+    a2eApi: config.api + 'eth_to_ebcs/',
+}
+```
 
 4.Start your server
 
